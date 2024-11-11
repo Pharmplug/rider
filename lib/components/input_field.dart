@@ -6,6 +6,8 @@ import 'package:pharmplug_rider/constants/app_font.dart';
 import '../constants/app_colors.dart';
 
 
+
+
 class CustomInput extends StatelessWidget {
   final String? hint;
   final String? label;
@@ -21,71 +23,82 @@ class CustomInput extends StatelessWidget {
   final void Function(String?)? onChanged;
   final String? Function(String?)? validator;
 
-  const CustomInput(
-      {Key? key,
-      this.hint,
-      this.label,
-      this.error,
-      this.description,
-      this.value,
-      this.suffixIcon,
-      this.enabled,
-      this.obsecure = false,
-      required this.onSaved,
-      this.onChanged,
-      this.validator,
-      this.type,
-      this.myController})
-      : super(key: key);
+  const CustomInput({
+    Key? key,
+    this.hint,
+    this.label,
+    this.error,
+    this.description,
+    this.value,
+    this.suffixIcon,
+    this.enabled,
+    this.obsecure = false,
+    required this.onSaved,
+    this.onChanged,
+    this.validator,
+    this.type,
+    this.myController,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: myController,
-      //maxLengthEnforced: false,
-      onSaved: onSaved,
-      enabled: enabled,
-      //autofocus: false,
-      validator: validator,
-      onChanged: onChanged,
-
-      keyboardType: type == 'number'
-          ? const TextInputType.numberWithOptions(signed: true, decimal: true)
-          : TextInputType.emailAddress,
-      maxLength: type == 'number' ? 13 : 100,
-      // controller: passwordController,
-      //  textInputAction: TextInputAction.next,
-      //obscure text will hide the text
-      obscureText: obsecure!,
-      //enableSuggestions: false,
-//autocorrect: false,
-      // controller: passwordController,
-//autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(top: 2, left: 8),
-        counterText: "",
-        focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(width: 0.5, color: Pallete.primaryColor)),
-        enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(width: 0.5, color: Pallete.primaryColor)),
-        labelText: label,
-        suffixIcon: suffixIcon,
-        //errorMaxLines: 1,
-        errorText: error,
-        hintText: hint,
-        hintStyle: const TextStyle(
-            color: Pallete.hintText,
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            decoration: TextDecoration.none),
-        labelStyle:AppFonts.text12Inter .copyWith(
-          fontSize: 12,
-          color: const Color(0xFF4F4F4F),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+   
+        Text(hint!,style: AppFonts.text14Inter,),
+        const SizedBox(height: 4,),
+        TextFormField(
+          controller: myController,
+          onSaved: onSaved,
+          enabled: enabled,
+          validator: validator,
+          onChanged: onChanged,
+          keyboardType: type == 'number'
+              ? const TextInputType.numberWithOptions(signed: true, decimal: true)
+              : TextInputType.emailAddress,
+          maxLength: type == 'number' ? 13 : 100,
+          obscureText: obsecure!,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Pallete.whiteColor,
+            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            counterText: "",
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(width: 0.5, color: Pallete.hintText),
+            ),
+            enabledBorder: OutlineInputBorder(
+              
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(width: 0.5, color: Pallete.hintText),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(width: 0.6, color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(width: 1, color: Colors.red),
+            ),
+            labelText: label,
+            suffixIcon: suffixIcon,
+            errorText: error,
+            hintText: hint,
+            hintStyle: const TextStyle(
+              color: Pallete.disabledColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              decoration: TextDecoration.none,
+            ),
+            labelStyle: AppFonts.text12Inter.copyWith(
+              fontSize: 12,
+              color: Pallete.hintText,
+            ),
+          ),
         ),
-
-        //obscure text will hide the text
-      ),
+      ],
     );
   }
 }
