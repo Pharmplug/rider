@@ -10,7 +10,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    final getSize = MediaQuery.of(context).size;
-    return Scaffold();
+    final _getSize = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SafeArea(
+          child: Column(
+        children: [
+          
+        ],
+      )),
+    );
   }
 }
