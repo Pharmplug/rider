@@ -9,7 +9,8 @@ class AppImages {
   static const wallet = 'assets/icons/wallet.png';
   static const cashHand = 'assets/icons/hand_cash.png';
   static const rep = 'assets/icons/rep.png';
-  static const box= 'assets/icons/box.png';
+  static const box = 'assets/icons/box.png';
   //IMAGES
   static const rider = 'assets/images/deliveryman.png';
+  static const placeHolder = 'assets/images/placeholder.png';
 }

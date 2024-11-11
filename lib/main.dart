@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'constants/app_provider.dart';
 import 'constants/app_routes.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
 
                     switch (data) {
                       case 0:
-                        return const Login();
+                        return const WelcomeScreen();
 
                       case 1:
                         return const Register();

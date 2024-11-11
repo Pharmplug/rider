@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../components/buttons.dart';
+import '../../components/input_field.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_font.dart';
+import '../../constants/app_images.dart';
+import '../../constants/app_routes.dart';
+
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
 
@@ -8,9 +15,83 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final _forgotPasswordFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final getSize = MediaQuery.of(context).size;
-    return Scaffold();
+    final _getSize = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Pallete.backgroundColor,
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: _getSize.height * 0.05,
+              ),
+              Center(
+                child: Image.asset(
+                  AppImages.logo,
+                  width: _getSize.width * 0.4,
+                ),
+              ),
+              SizedBox(
+                height: _getSize.height * 0.05,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Forgot Password?",
+                    style: AppFonts.text16Inter
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: _getSize.height * 0.005,
+                  ),
+                  Text(
+                    "Enter your email address to receive an OTP to reset your password.",
+                    style: AppFonts.text14InterHint,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: _getSize.height * 0.05,
+              ),
+              Form(
+                key: _forgotPasswordFormKey,
+                child: Column(
+                  children: [
+                    CustomInput(
+                        hint: "Email Address",
+                        label: "Enter Email Address",
+                        onChanged: (c) => {},
+                        onSaved: (s) => {}),
+                    SizedBox(
+                      height: _getSize.height * 0.035,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: _getSize.height * 0.35,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ButtonWithFunction(
+                    text: "Reset Password",
+                    onPressed: () => {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              AppRoutes.resetotpScreen, (route) => false)
+                        }),
+              ),
+            ],
+          ),
+        ),
+      )),
+    );
   }
 }
