@@ -4,8 +4,9 @@ import '../../../constants/app_colors.dart';
 import '../constants/app_font.dart';
 
 
-class ButtonWithFuction extends StatelessWidget {
-  const ButtonWithFuction({
+
+class ButtonWithFunction extends StatelessWidget {
+  const ButtonWithFunction({
     Key? key,
     required this.text,
     required this.onPressed,
@@ -15,7 +16,7 @@ class ButtonWithFuction extends StatelessWidget {
 
   final String text;
   final bool? disabled;
-  final double? fontS; // Use '?' for the nullable type
+  final double? fontS;
   final Function() onPressed;
 
   @override
@@ -25,25 +26,27 @@ class ButtonWithFuction extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(2)),
       ),
       width: MediaQuery.of(context).size.width,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: disabled != null && disabled! ? Pallete.disabledColor : Colors.white, shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: disabled != null && disabled! ? Colors.grey : Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          backgroundColor:
-              disabled != null && disabled! ? Pallete.hintText : Colors.black,
+          backgroundColor: disabled != null && disabled! ? Colors.grey[400] : Colors.blue,
           shadowColor: const Color.fromARGB(56, 148, 148, 148),
           elevation: 5,
-          textStyle: AppFonts.text14InterWhite.copyWith(fontSize: fontS),
+          textStyle: AppFonts.text14Inter 
         ),
         onPressed: disabled != null && disabled! ? null : onPressed,
         child: Text(
           text,
-          style: AppFonts.text14InterWhite.copyWith(fontSize: 18),
+          style: TextStyle(
+            fontSize: fontS,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
 }
-

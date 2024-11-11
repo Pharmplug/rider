@@ -18,10 +18,31 @@ class AppFonts {
       fontWeight: FontWeight.w400,
     ),
   );
+    static TextStyle text14InterHint = GoogleFonts.inter(
+    textStyle: const TextStyle(
+      fontSize: 14,
+      color: Pallete.hintText,
+      fontWeight: FontWeight.w300,
+    ),
+  );
+    static TextStyle text16Inter = GoogleFonts.inter(
+    textStyle: const TextStyle(
+      fontSize: 16,
+      color: Pallete.text,
+      fontWeight: FontWeight.bold,
+    ),
+  );
   static TextStyle text12Inter = GoogleFonts.inter(
     textStyle: const TextStyle(
       fontSize: 12,
       color: Pallete.text,
+      fontWeight: FontWeight.w300,
+    ),
+  );
+    static TextStyle text12InterHint = GoogleFonts.inter(
+    textStyle: const TextStyle(
+      fontSize: 12,
+      color: Pallete.hintText,
       fontWeight: FontWeight.w300,
     ),
   );

@@ -1,9 +1,10 @@
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'constants/app_provider.dart';
 import 'constants/app_routes.dart';
@@ -23,30 +24,9 @@ void main() async {
 
   //check
  await dotenv.load(fileName: ".env");
-  AwesomeNotifications().initialize('resource://drawable/launcher_icon', [
-    // notification icon
-    NotificationChannel(
-        channelGroupKey: 'pharmplug',
-        channelKey: 'request',
-        channelName: 'Request notifications',
-        channelDescription: 'Notification channel for recieving request',
-        channelShowBadge: true,
-        importance: NotificationImportance.High,
-        enableVibration: true,
-        playSound: true),
 
-    // NotificationChannel(
-    //     channelGroupKey: 'image_test',
-    //     channelKey: 'image',
-    //     channelName: 'image notifications',
-    //     channelDescription: 'Notification channel for image tests',
-    //     defaultColor: Pallete.primaryColor,
-    //     ledColor: Colors.white,
-    //     channelShowBadge: true,
-    //     importance: NotificationImportance.High)
 
-    //add more notification type with different configuration
-  ]);
+
 
   runApp(const MyApp());
 }
@@ -57,7 +37,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     AwesomeNotifications().requestPermissionToSendNotifications();
+
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -89,7 +69,7 @@ class MyApp extends StatelessWidget {
 
                     switch (data) {
                       case 0:
-                        return const Login();
+                        return const WelcomeScreen();
 
                       case 1:
                         return const Register();
