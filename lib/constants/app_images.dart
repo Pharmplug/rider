@@ -10,6 +10,7 @@ class AppImages {
   static const cashHand = 'assets/icons/hand_cash.png';
   static const rep = 'assets/icons/rep.png';
   static const box = 'assets/icons/box.png';
+  static const home = 'assets/icons/home.png';
   //IMAGES
   static const rider = 'assets/images/deliveryman.png';
   static const bg = 'assets/images/bg.png';
