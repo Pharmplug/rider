@@ -12,5 +12,6 @@ class AppImages {
   static const box = 'assets/icons/box.png';
   //IMAGES
   static const rider = 'assets/images/deliveryman.png';
+  static const bg = 'assets/images/bg.png';
   static const placeHolder = 'assets/images/placeholder.png';
 }
