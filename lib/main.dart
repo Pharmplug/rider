@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
 
                     switch (data) {
                       case 0:
-                        return const WelcomeScreen();
+                        return const Dashboard(); //WelcomeScreen()
 
                       case 1:
                         return const Register();

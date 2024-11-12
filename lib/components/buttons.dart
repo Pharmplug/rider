@@ -33,7 +33,7 @@ class ButtonWithFunction extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          backgroundColor: disabled != null && disabled! ? Colors.grey[400] : Colors.blue,
+          backgroundColor: disabled != null && disabled! ? Colors.grey[400] : Pallete.primaryColor,
           shadowColor: const Color.fromARGB(56, 148, 148, 148),
           elevation: 5,
           textStyle: AppFonts.text14Inter 
