@@ -6,6 +6,8 @@ import '../../components/input_field.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import '../dashboard/dashboard.dart';
+import '../navbar/nav.dart';
 
 class ProfileDetails extends StatefulWidget {
   const ProfileDetails({Key? key}) : super(key: key);
@@ -66,7 +68,11 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: Icon(Icons.edit_note_rounded,size: _getSize.width*0.08,color: Pallete.primaryColor,),
+                    child: Icon(
+                      Icons.edit_note_rounded,
+                      size: _getSize.width * 0.08,
+                      color: Pallete.primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -134,13 +140,21 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 child: ButtonWithFunction(
                     text: "Confirm",
                     onPressed: () => {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.dashboardScreen, (route) => false)
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NavBar(
+                                      initialScreen: const Dashboard(),
+                                      initialTab: 0,
+                                    )),
+                            (route) => false,
+                          )
                         }),
-              ),  SizedBox(
+              ),
+              SizedBox(
                 height: _getSize.height * 0.04,
               ),
-           ],
+            ],
           ),
         ),
       )),
