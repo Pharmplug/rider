@@ -125,7 +125,7 @@ class DashboardHeader extends StatelessWidget {
                                       : Pallete.textRed,
                                 ),
                                 Text(
-                                  "Online",
+                                 isSwitched? "Online":"Offline",
                                   style: AppFonts.text12Barlow.copyWith(
                                     color: isSwitched
                                         ? Pallete.secondaryColor2
