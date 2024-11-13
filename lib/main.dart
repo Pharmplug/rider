@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
+import 'package:pharmplug_rider/views/profile/earnings.dart';
+import 'package:pharmplug_rider/views/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'constants/app_provider.dart';
 import 'constants/app_routes.dart';
@@ -59,35 +61,36 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
-            home: FutureBuilder(
-              builder: (ctx, snapshot) {
-                // Checking if future is resolved or not
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // check if snapshot has data and then convert data to int
-                  if (snapshot.hasData) {
-                    final data = snapshot.data as int;
+            home:Profile()
+            // home: FutureBuilder(
+            //   builder: (ctx, snapshot) {
+            //     // Checking if future is resolved or not
+            //     if (snapshot.connectionState == ConnectionState.done) {
+            //       // check if snapshot has data and then convert data to int
+            //       if (snapshot.hasData) {
+            //         final data = snapshot.data as int;
 
-                    switch (data) {
-                      case 0:
-                        return const WelcomeScreen();
+            //         switch (data) {
+            //           case 0:
+            //             return const WelcomeScreen();
 
-                      case 1:
-                        return const Register();
-                      case 2:
-                        return const RegisterOTP();
-                      case 3:
-                        return const Dashboard();
-                    }
-                    // if we got our data
-                  }
-                }
-                // Displaying empty to indicate waiting state
-                return Container(
-                  color: Colors.white,
-                );
-              },
-              future: alreadyAUser,
-            ),
+            //           case 1:
+            //             return const Register();
+            //           case 2:
+            //             return const RegisterOTP();
+            //           case 3:
+            //             return const Dashboard();
+            //         }
+            //         // if we got our data
+            //       }
+            //     }
+            //     // Displaying empty to indicate waiting state
+            //     return Container(
+            //       color: Colors.white,
+            //     );
+            //   },
+            //   future: alreadyAUser,
+            // ),
           ),
         );
       });
