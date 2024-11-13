@@ -135,7 +135,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     text: "Confirm",
                     onPressed: () => {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.loginScreen, (route) => false)
+                              AppRoutes.dashboardScreen, (route) => false)
                         }),
               ),  SizedBox(
                 height: _getSize.height * 0.04,
