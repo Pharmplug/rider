@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
+import 'package:pharmplug_rider/views/profile/earnings.dart';
+import 'package:pharmplug_rider/views/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'constants/app_provider.dart';
 import 'constants/app_routes.dart';
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
+
             home: FutureBuilder(
               builder: (ctx, snapshot) {
                 // Checking if future is resolved or not
@@ -88,6 +91,7 @@ class MyApp extends StatelessWidget {
               },
               future: alreadyAUser,
             ),
+           
           ),
         );
       });
