@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
+import 'package:pharmplug_rider/views/profile/profile.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -16,263 +17,237 @@ class Earnings extends StatefulWidget {
   @override
   State<Earnings> createState() => _EarningsState();
 }
+class OrderList{
+  String? name;
+  String? price;
+  String? noOfItems;
+  String? image;
+  String? caretImage;
+  String? boxImage;
+  String? time;
+  // Color? color;
 
+  OrderList({
+    required this.name,
+    required this.price,
+    required this.noOfItems,
+    required this.image,
+    required this.caretImage,
+    required this.boxImage,
+    required this.time,
+    // this.color,
+  });
+}
+
+final List<OrderList> items = [
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  OrderList(
+    name: "Julie Harrison Pharmacy Store",
+    price: "₦20,700‎.00",
+    noOfItems: "2 items",
+    image: "assets/icons/storefront.png",
+    caretImage: "assets/images/bike.png",
+    boxImage: "assets/icons/boxPrimary.png",
+    time: "10:12AM",
+    // color: Color.fromARGB(255, 203, 238, 245),
+  ),
+  ];
 class _EarningsState extends State<Earnings> {
   bool isTodaySelected = true;
 
-  final List<Map<String, dynamic>> items = [
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-    {
-      "name": "Julie Harrison Pharmacy Store",
-      "price": "₦20,700‎.00",
-      "noOfItems": "2 items",
-      "image": "assets/icons/storefront.png",
-      'caretImage': "assets/images/bike.png",
-      'boxImage': "assets/icons/boxPrimary.png",
-      "time": "10:12AM"
-      // "color": Color.fromARGB(255, 203, 238, 245)
-    },
-  ];
-
-  @override
+@override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Pallete.whiteColor,
       body: Stack(children: [
         SafeArea(
-            child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    AppImages.back,
-                    width: _getSize.width * 0.15,
-                    scale: 2,
-                    // fit: BoxFit.cover,
-                  ),
-                  Text('Earnings',
-                      style: AppFonts.text16Barlow
-                          .copyWith(fontWeight: FontWeight.w600)),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Container(
-                  width: _getSize.width * 0.9,
-                  height: _getSize.height * 0.04,
-                  // Main container width
-                  padding: const EdgeInsets.all(1.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Pallete.secondaryColor,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // 'Today' container
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isTodaySelected = true;
-                          });
-                        },
-                        child: Container(
-                          width: _getSize.width * 0.45,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: isTodaySelected
-                                  ? Colors.white
-                                  : Pallete.secondaryColor,
-                              border: isTodaySelected
-                                  ? Border.all(color: Pallete.secondaryColor)
-                                  : Border.all(color: Colors.transparent)),
-                          child: Text('TODAY',
-                              style: isTodaySelected
-                                  ? AppFonts.text16Barlow
-                                      .copyWith(fontWeight: FontWeight.w500)
-                                  : AppFonts.text16Barlow.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                        ),
-                      ),
-                      // 'Weekly' container
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isTodaySelected = false;
-                            });
-                          },
-                          child: Container(
-                            width: _getSize.width * 0.45,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: !isTodaySelected
-                                  ? Colors.white
-                                  : Pallete.secondaryColor,
-                              border: Border.all(
-                                color: !isTodaySelected
-                                    ? Pallete.secondaryColor
-                                    : Colors.transparent,
-                              ),
-                            ),
-                            child: Text('WEEKLY',
-                                style: !isTodaySelected
-                                    ? AppFonts.text16Barlow
-                                        .copyWith(fontWeight: FontWeight.w500)
-                                    : AppFonts.text16Barlow.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: _getSize.height * 0.05,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Tue, 8th Oct, 2024',
-                          style: AppFonts.text14Barlow
-                              .copyWith(fontWeight: FontWeight.w500)),
-                      SizedBox(
-                        height: _getSize.height * 0.01,
-                      ),
-                      Text('₦20,700‎.00',
-                          style: AppFonts.text16Barlow.copyWith(
-                              fontSize: 21, fontWeight: FontWeight.w700)),
-                    ],
-                  ),
-                  SizedBox(
-                    width: _getSize.width * 0.1,
-                  ),
-                  // Divider line
-                  Container(
-                    width: 1,
-                    height: 60,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    width: _getSize.width * 0.15,
-                  ),
-                  Column(
-                    children: [
-                      Column(
-                        children: [
-                          Text('Trips',
-                              style: AppFonts.text14Barlow
-                                  .copyWith(fontWeight: FontWeight.w500)),
-                          SizedBox(
-                            height: _getSize.height * 0.01,
-                          ),
-                          Text('07',
-                              style: AppFonts.text16Barlow.copyWith(
-                                  fontSize: 21, fontWeight: FontWeight.w600))
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-
-              // Conditionally render Order List or Bar Chart based on isTodaySelected
-              if (isTodaySelected)
-                SizedBox(height: _getSize.height * 1, child: _buildOrderList())
-              else
-                Column(
-                  children: [
-                    SizedBox(
-                      height: _getSize.height * 0.7,
-                      child: _buildBarChart(),
-                    ),
-                    _buildOrderList()
-                  ],
-                ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(_getSize, context),
+                _buildToggleContainer(_getSize),
+                SizedBox(height: _getSize.height * 0.05),
+                _buildSummary(_getSize),
+                if (isTodaySelected)
+                  SizedBox(height: _getSize.height * 1, child: _buildOrderList())
+                else
+                  _buildWeeklyView(_getSize),
+              ],
+            ),
           ),
-        )),
+        ),
       ]),
+    );
+  }
+
+  Widget _buildHeader(Size _getSize, BuildContext context) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Profile()),
+            );
+          },
+          child: Image.asset(
+            AppImages.back,
+            width: _getSize.width * 0.15,
+            scale: 2,
+          ),
+        ),
+        Text(
+          'Earnings',
+          style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildToggleContainer(Size _getSize) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: Container(
+        width: _getSize.width * 0.9,
+        height: _getSize.height * 0.04,
+        padding: const EdgeInsets.all(1.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Pallete.secondaryColor,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildToggleOption("TODAY", true, _getSize),
+            _buildToggleOption("WEEKLY", false, _getSize),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildToggleOption(String title, bool isToday, Size _getSize) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isTodaySelected = isToday;
+        });
+      },
+      child: Container(
+        width: _getSize.width * 0.40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: isTodaySelected == isToday ? Colors.white : Pallete.secondaryColor,
+          border: Border.all(
+            color: isTodaySelected == isToday ? Pallete.secondaryColor : Colors.transparent,
+          ),
+        ),
+        child: Text(
+          title,
+          style: AppFonts.text16Barlow.copyWith(
+            fontWeight: FontWeight.w600,
+            color: isTodaySelected == isToday ? Colors.black : Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSummary(Size _getSize) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Tue, 8th Oct, 2024', style: AppFonts.text14Barlow.copyWith(fontWeight: FontWeight.w500)),
+            SizedBox(height: _getSize.height * 0.01),
+            Text('₦20,700‎.00', style: AppFonts.text16Barlow.copyWith(fontSize: 21, fontWeight: FontWeight.w700)),
+          ],
+        ),
+        SizedBox(width: _getSize.width * 0.15),
+        Container(width: 1, height: 60, color: Colors.grey),
+        SizedBox(width: _getSize.width * 0.15),
+        Column(
+          children: [
+            Text('Trips', style: AppFonts.text14Barlow.copyWith(fontWeight: FontWeight.w500)),
+            SizedBox(height: _getSize.height * 0.01),
+            Text('07', style: AppFonts.text16Barlow.copyWith(fontSize: 21, fontWeight: FontWeight.w600)),
+          ],
+        ),
+      ],
     );
   }
 
@@ -283,11 +258,8 @@ class _EarningsState extends State<Earnings> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 30),
-          child: Text("Today's Order",
-              style:
-                  AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
+          child: Text("Today's Order", style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
         ),
-        // Container with fixed height to hold the ListView.builder
         Container(
           height: _getSize.height * 0.7,
           child: ListView.builder(
@@ -296,56 +268,7 @@ class _EarningsState extends State<Earnings> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // First Column: Image, Product Details, Distance, and No of Items
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  _buildOrderImage(index),
-                                  SizedBox(width: _getSize.width * 0.03),
-                                  Expanded(child: _buildProductName(index)),
-                                ],
-                              ),
-                              SizedBox(height: _getSize.height * 0.01),
-                              Row(
-                                children: [
-                                  _buildLocation(index),
-                                  SizedBox(width: _getSize.width * 0.05),
-                                  _buildNoOfItems(index),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Second Column: Price, Caret, and Time
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                _buildPrice(index),
-                                SizedBox(width: _getSize.width * 0.01),
-                                _caretForward(),
-                              ],
-                            ),
-                            SizedBox(height: _getSize.height * 0.002),
-                            _buildTime(index),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: _getSize.height * 0.01),
-                    // Divider line
-                    Divider(color: Colors.grey),
-                  ],
-                ),
+                child: _buildOrderRow(index, _getSize),
               );
             },
           ),
@@ -371,7 +294,7 @@ class _EarningsState extends State<Earnings> {
         color: Pallete.primaryColor,
       ),
       child: Image.asset(
-        items[index]["image"]!,
+        items[index].image!,
         scale: 4,
       ),
     );
@@ -382,7 +305,7 @@ class _EarningsState extends State<Earnings> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          items[index]["name"]!,
+          items[index].name!,
           style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w600),
         ),
       ],
@@ -390,7 +313,7 @@ class _EarningsState extends State<Earnings> {
   }
 
   Widget _buildPrice(int index) {
-    return Text(items[index]["price"]!,
+    return Text(items[index].price!,
         style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w500));
   }
 
@@ -399,7 +322,7 @@ class _EarningsState extends State<Earnings> {
     return Row(
       children: [
         Image.asset(
-          items[index]["caretImage"]!,
+          items[index].caretImage!,
           scale: 1,
         ),
         SizedBox(
@@ -417,7 +340,7 @@ class _EarningsState extends State<Earnings> {
     return Row(
       children: [
         Image.asset(
-          items[index]["boxImage"]!,
+          items[index].boxImage!,
           scale: 2,
         ),
         SizedBox(
@@ -432,9 +355,68 @@ class _EarningsState extends State<Earnings> {
   }
 
   Widget _buildTime(int index) {
-    return Text(items[index]["time"]!,
+    return Text(items[index].time!,
         style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w500));
   }
+  Widget _buildOrderRow(int index, Size _getSize) {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      _buildOrderImage(index),
+                      SizedBox(width: _getSize.width * 0.03),
+                      _buildProductName(index),
+                    ],
+                  ),
+                  SizedBox(height: _getSize.height * 0.01),
+                  Row(
+                    children: [
+                      _buildLocation(index),
+                      SizedBox(width: _getSize.width * 0.05),
+                      _buildNoOfItems(index),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    _buildPrice(index),
+                    SizedBox(width: _getSize.width * 0.01),
+                    _caretForward(),
+                  ],
+                ),
+                SizedBox(height: _getSize.height * 0.002),
+                _buildTime(index),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: _getSize.height * 0.01),
+        Divider(color: Colors.black12),
+      ],
+    );
+  }
+
+  Widget _buildWeeklyView(Size _getSize) {
+    return Column(
+      children: [
+        SizedBox(height: _getSize.height * 0.55, child: _buildBarChart()),
+        _buildOrderList(),
+      ],
+    );
+  }
+
 
   Widget _buildBarChart() {
     String selectedValue = 'Weekly';
@@ -443,7 +425,8 @@ class _EarningsState extends State<Earnings> {
 
     // Sample data corresponding to Y-axis values in thousands
     final List<double> barData = [16, 5, 10, 15, 20, 25, 10];
-
+    final double maxValue = barData.reduce((a, b) => a > b ? a : b);  
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
       child: Container(
@@ -452,9 +435,8 @@ class _EarningsState extends State<Earnings> {
           border: Border.all(color: Colors.black26, width: 0.5),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Row with 'Total Earnings' and dropdown
               Row(
@@ -477,8 +459,9 @@ class _EarningsState extends State<Earnings> {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
                     decoration: BoxDecoration(
+                      color: Color(0xFFF2F4F7),
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: Colors.grey, width: 0.2),
                     ),
@@ -518,12 +501,26 @@ class _EarningsState extends State<Earnings> {
                 ],
               ),
               SizedBox(
-                height: _getSize.height * 0.04,
+                height: _getSize.height * 0.005,
               ),
-              Expanded(
+
+              SizedBox(
+                width: double.infinity,
+                child: Divider(
+                  color: Colors.black12,
+                  thickness: 1,
+                ),
+              ),
+
+              SizedBox(
+                height: _getSize.height * 0.015,
+              ),
+
+              SizedBox(
+                height: 310,
                 child: BarChart(
                   BarChartData(
-                    alignment: BarChartAlignment.spaceEvenly,
+                    alignment: BarChartAlignment.spaceAround,
                     maxY: 25, // Ensure maxY matches the highest Y-axis value
                     barGroups: [
                       for (int i = 0; i < barData.length; i++)
@@ -532,13 +529,20 @@ class _EarningsState extends State<Earnings> {
                           barRods: [
                             BarChartRodData(
                               toY: barData[i],
-                              color: Color(0XFFCDEFF5),
+                              color: barData[i] == maxValue ? Colors.blue : const Color.fromARGB(255, 156, 218, 247),
                               width: 30,
-                              borderRadius: BorderRadius.zero,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4),
+                                  topRight: Radius.circular(4)),
                             ),
                           ],
                         ),
                     ],
+                    gridData: FlGridData(
+                      drawVerticalLine: false,
+                      drawHorizontalLine: true,
+                    ),
+
                     titlesData: FlTitlesData(
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
@@ -547,17 +551,31 @@ class _EarningsState extends State<Earnings> {
                           getTitlesWidget: (value, meta) {
                             switch (value.toInt()) {
                               case 0:
-                                return Text('0');
+                                return Text('0',
+                                    style: AppFonts.text12Barlow
+                                        .copyWith(fontWeight: FontWeight.w500));
                               case 5:
-                                return Text('5k');
+                                return Text('5k',
+                                    style: AppFonts.text12Barlow
+                                        .copyWith(fontWeight: FontWeight.w500));
                               case 10:
-                                return Text('10k');
+                                return Text('10k',
+                                    style: AppFonts.text12Barlow
+                                        .copyWith(fontWeight: FontWeight.w500));
                               case 15:
-                                return Text('15k');
+                                return Text('15k',
+                                    style: AppFonts.text12Barlow
+                                        .copyWith(fontWeight: FontWeight.w500));
                               case 20:
-                                return Text('20k');
+                                return Text('20k',
+                                    style: AppFonts.text12Barlow
+                                        .copyWith(fontWeight: FontWeight.w500));
                               case 25:
-                                return Text('25k');
+                                return Text(
+                                  '25k',
+                                  style: AppFonts.text12Barlow
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                );
                               default:
                                 return Container();
                             }
@@ -577,15 +595,15 @@ class _EarningsState extends State<Earnings> {
                           showTitles: true,
                           getTitlesWidget: (value, meta) {
                             const days = [
-                              "Mon",
-                              "Tue",
-                              "Wed",
-                              "Thu",
-                              "Fri",
-                              "Sat",
-                              "Sun"
+                              "MON",
+                              "TUE",
+                              "WED",
+                              "THU",
+                              "FRI",
+                              "SAT",
+                              "SUN"
                             ];
-                            return Text(days[value.toInt()]);
+                            return Text(days[value.toInt()], style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w500),);
                           },
                         ),
                       ),
@@ -595,11 +613,9 @@ class _EarningsState extends State<Earnings> {
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+              )
+              
+              ]))));
 }
+}
+

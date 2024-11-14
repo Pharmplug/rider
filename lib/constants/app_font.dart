@@ -40,13 +40,7 @@ class AppFonts {
       fontWeight: FontWeight.w300,
     ),
   );
-   static TextStyle text12InterSm = GoogleFonts.inter(
-    textStyle: const TextStyle(
-      fontSize: 12,
-      color: Pallete.text,
-      fontWeight: FontWeight.w400,
-    ),
-  );
+
     static TextStyle text12InterHint = GoogleFonts.inter(
     textStyle: const TextStyle(
       fontSize: 12,
