@@ -45,17 +45,22 @@ class DashboardDeliveries extends StatelessWidget {
                   ),
                 ],
               ),
-           SizedBox(height: getSize.height*0.025,),
-         buildSearchInput(),
-             SizedBox(height: getSize.height*0.025,),
+              SizedBox(
+                height: getSize.height * 0.025,
+              ),
+              buildSearchInput(),
+              SizedBox(
+                height: getSize.height * 0.025,
+              ),
               SizedBox(
                 height: getSize.height * 0.28,
                 child: ListView.builder(
                     itemCount: orders.length,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 8),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 8),
                         child: Column(
                           children: [
                             Row(
@@ -74,8 +79,8 @@ class DashboardDeliveries extends StatelessWidget {
                                   children: [
                                     Text(
                                       orders[index].name,
-                                      style: AppFonts.text12Barlow
-                                          .copyWith(fontWeight: FontWeight.bold),
+                                      style: AppFonts.text12Barlow.copyWith(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Row(
                                       children: [
@@ -102,7 +107,7 @@ class DashboardDeliveries extends StatelessWidget {
                                       width: getSize.width * 0.21,
                                       decoration: BoxDecoration(
                                         color: orders[index].completed
-                                            ? Color(0xFF175CD3).withOpacity(0.1)
+                                            ? const Color(0xFF175CD3).withOpacity(0.1)
                                             : Pallete.secondaryColor
                                                 .withOpacity(0.1),
                                         borderRadius: BorderRadius.circular(10),
@@ -118,15 +123,18 @@ class DashboardDeliveries extends StatelessWidget {
                                               Icons.circle_rounded,
                                               size: 12,
                                               color: orders[index].completed
-                                                  ? Color(0xFF175CD3)
-                                                  : Color(0xFF027A48),
+                                                  ? const Color(0xFF175CD3)
+                                                  : const Color(0xFF027A48),
                                             ),
                                             Text(
-                                            orders[index].completed?  "On Transit":"Delivered",
-                                              style: AppFonts.text12Barlow.copyWith(
+                                              orders[index].completed
+                                                  ? "On Transit"
+                                                  : "Delivered",
+                                              style: AppFonts.text12Barlow
+                                                  .copyWith(
                                                 color: orders[index].completed
-                                                    ? Color(0xFF175CD3)
-                                                    : Color(0xFF027A48),
+                                                    ? const Color(0xFF175CD3)
+                                                    : const Color(0xFF027A48),
                                                 fontWeight: FontWeight.w300,
                                               ),
                                             ),
@@ -136,19 +144,26 @@ class DashboardDeliveries extends StatelessWidget {
                                     ),
                                     SizedBox(height: getSize.height * 0.005),
                                     Text(
-                                     "#${ orders[index].amount}",
+                                      "#${orders[index].amount}",
                                       style: AppFonts.text14Barlow.copyWith(
                                           color: Pallete.secondaryColor,
                                           fontWeight: FontWeight.w300,
                                           decoration: TextDecoration.underline,
-                                          decorationColor: Pallete.secondaryColor),
+                                          decorationColor:
+                                              Pallete.secondaryColor),
                                     )
                                   ],
                                 )
                               ],
                             ),
-                        
-                        SizedBox(height: getSize.height*0.015,), Container(color: const Color.fromARGB(255, 210, 212, 215),height: getSize.height*0.001,width: getSize.width,)
+                            SizedBox(
+                              height: getSize.height * 0.015,
+                            ),
+                            Container(
+                              color: const Color.fromARGB(255, 210, 212, 215),
+                              height: getSize.height * 0.001,
+                              width: getSize.width,
+                            )
                           ],
                         ),
                       );
@@ -161,25 +176,30 @@ class DashboardDeliveries extends StatelessWidget {
     );
   }
 }
+
 Widget buildSearchInput() => Container(
-    decoration: BoxDecoration(
-      border: Border.all(color: Pallete.disabledColor,width: 0.5),
-        color: Pallete.whiteColor, borderRadius: BorderRadius.circular(10)),
-    child: Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 20),
-      child: Row(
-        children: [
-          Icon(
-            Icons.search_rounded,
-            size: 30,
-            color: Pallete.text,
-          ),
-          Flexible(
-            child: TextField(
-              decoration: InputDecoration(border: InputBorder.none,hintText: "Search order id...",hintStyle: AppFonts.text12InterHint),
+      decoration: BoxDecoration(
+          border: Border.all(color: Pallete.disabledColor, width: 0.5),
+          color: Pallete.whiteColor,
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 20),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.search_rounded,
+              size: 30,
+              color: Pallete.text,
             ),
-          ),
-        ],
+            Flexible(
+              child: TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Search order id...",
+                    hintStyle: AppFonts.text12InterHint),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
