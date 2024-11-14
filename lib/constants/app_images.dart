@@ -20,6 +20,7 @@ class AppImages {
 
   //IMAGES
   static const rider = 'assets/images/deliveryman.png';
+  static const bg = 'assets/images/bg.png';
   static const placeHolder = 'assets/images/placeholder.png';
   static const profilePic = 'assets/images/profilepic.png';
   static const bike = 'assets/images/bike.png';

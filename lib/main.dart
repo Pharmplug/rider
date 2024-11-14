@@ -61,36 +61,37 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
-            home:Profile()
-            // home: FutureBuilder(
-            //   builder: (ctx, snapshot) {
-            //     // Checking if future is resolved or not
-            //     if (snapshot.connectionState == ConnectionState.done) {
-            //       // check if snapshot has data and then convert data to int
-            //       if (snapshot.hasData) {
-            //         final data = snapshot.data as int;
 
-            //         switch (data) {
-            //           case 0:
-            //             return const WelcomeScreen();
+            home: FutureBuilder(
+              builder: (ctx, snapshot) {
+                // Checking if future is resolved or not
+                if (snapshot.connectionState == ConnectionState.done) {
+                  // check if snapshot has data and then convert data to int
+                  if (snapshot.hasData) {
+                    final data = snapshot.data as int;
 
-            //           case 1:
-            //             return const Register();
-            //           case 2:
-            //             return const RegisterOTP();
-            //           case 3:
-            //             return const Dashboard();
-            //         }
-            //         // if we got our data
-            //       }
-            //     }
-            //     // Displaying empty to indicate waiting state
-            //     return Container(
-            //       color: Colors.white,
-            //     );
-            //   },
-            //   future: alreadyAUser,
-            // ),
+                    switch (data) {
+                      case 0:
+                        return const Dashboard(); //WelcomeScreen()
+
+                      case 1:
+                        return const Register();
+                      case 2:
+                        return const RegisterOTP();
+                      case 3:
+                        return const Dashboard();
+                    }
+                    // if we got our data
+                  }
+                }
+                // Displaying empty to indicate waiting state
+                return Container(
+                  color: Colors.white,
+                );
+              },
+              future: alreadyAUser,
+            ),
+           
           ),
         );
       });
