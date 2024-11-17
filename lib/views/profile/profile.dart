@@ -149,54 +149,59 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0),
-              child: Container(
-                width: _getSize.width * 0.78,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0XFFEBF9FB),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      AppImages.cashHand,
-                      scale: 4,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 20.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                AppImages.wallet,
-                                scale: 4,
-                                // width: _getSize.width * 0.05,
-                              ),
-                              SizedBox(
-                              width: _getSize.width * 0.01,
-                            ),
-                              Text(
-                                'Total Earnings',
-                                style: AppFonts.text12Barlow.copyWith(color: Pallete.primaryColor, fontWeight: FontWeight.w400),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: _getSize.height * 0.02,
-                          ),
-                          Text(
-                            '₦600,700‎.00',
-                            style: AppFonts.text15OpenSans.copyWith(fontWeight: FontWeight.w700, color: Pallete.primaryColor),
-                          )
-                        ],
+            GestureDetector(
+               onTap: () {
+                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>Earnings()));
+                  },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20.0),
+                child: Container(
+                  width: _getSize.width * 0.78,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0XFFEBF9FB),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        AppImages.cashHand,
+                        scale: 4,
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 20.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AppImages.wallet,
+                                  scale: 4,
+                                  // width: _getSize.width * 0.05,
+                                ),
+                                SizedBox(
+                                width: _getSize.width * 0.01,
+                              ),
+                                Text(
+                                  'Total Earnings',
+                                  style: AppFonts.text12Barlow.copyWith(color: Pallete.primaryColor, fontWeight: FontWeight.w400),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: _getSize.height * 0.02,
+                            ),
+                            Text(
+                              '₦600,700‎.00',
+                              style: AppFonts.text15OpenSans.copyWith(fontWeight: FontWeight.w700, color: Pallete.primaryColor),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

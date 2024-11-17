@@ -6,6 +6,8 @@ import 'package:pharmplug_rider/constants/app_font.dart';
 import '../../components/buttons.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import '../dashboard/dashboard.dart';
+import '../navbar/nav.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -143,8 +145,15 @@ class _LoginState extends State<Login> {
                 child: ButtonWithFunction(
                     text: "Sign in",
                     onPressed: () => {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.dashboardScreen, (route) => false)
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NavBar(
+                                      initialScreen: const Dashboard(),
+                                      initialTab: 0,
+                                    )),
+                            (route) => false,
+                          )
                         }),
               ),
               SizedBox(
