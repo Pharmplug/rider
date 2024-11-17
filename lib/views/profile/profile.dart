@@ -3,12 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
-
-import '../../components/buttons.dart';
-import '../../components/input_field.dart';
 import '../../constants/app_font.dart';
-import '../../constants/app_images.dart';
-import '../../constants/app_routes.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
