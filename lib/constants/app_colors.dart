@@ -4,6 +4,7 @@ class Pallete {
   static const backgroundColor = Color(0xFFFAFAFA);
   static const onboardColor = Color(0xFFE9E9E9);
   static const secondaryColor = Color(0xFFF0F4EA);
+    static const secondaryColor2 = Color(0xFF027A48);
   static const primaryColor = Color(0xFF06B1CF);
   static const primaryColor2 = Color(0xFF1971A3);
   static const black = Color(0xFF000000);
