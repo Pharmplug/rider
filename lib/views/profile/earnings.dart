@@ -3,10 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
-import 'package:pharmplug_rider/views/profile/profile.dart';
-
-import '../../components/buttons.dart';
-import '../../components/input_field.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
