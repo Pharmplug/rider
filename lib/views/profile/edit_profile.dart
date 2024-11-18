@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
+import 'package:pharmplug_rider/views/profile/widgets/header.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -9,14 +10,14 @@ import '../../constants/app_routes.dart';
 import '../dashboard/dashboard.dart';
 import '../navbar/nav.dart';
 
-class ProfileDetails extends StatefulWidget {
-  const ProfileDetails({Key? key}) : super(key: key);
+class EditProfile extends StatefulWidget {
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
-  State<ProfileDetails> createState() => _ProfileDetailsState();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
-class _ProfileDetailsState extends State<ProfileDetails> {
+class _EditProfileState extends State<EditProfile> {
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
   final _registerFormKey = GlobalKey<FormState>();
@@ -34,30 +35,11 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              buildHeader(_getSize, context,"Edit Profile"),
               SizedBox(
                 height: _getSize.height * 0.05,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Confirm your profile details",
-                    style: AppFonts.text16Inter
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: _getSize.height * 0.005,
-                  ),
-                  Text(
-                    "Review the profile details as provided to the Admin",
-                    style: AppFonts.text14InterHint,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: _getSize.height * 0.025,
-              ),
+             
               Stack(
                 children: [
                   Image.asset(
@@ -138,7 +120,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ButtonWithFunction(
-                    text: "Confirm",
+                    text: "Save",
                     onPressed: () => {
                           Navigator.pushAndRemoveUntil(
                             context,

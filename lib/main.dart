@@ -1,16 +1,15 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pharmplug_rider/views/navbar/nav.dart';
 import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
+import 'package:pharmplug_rider/views/profile/earnings.dart';
+import 'package:pharmplug_rider/views/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'constants/app_provider.dart';
 import 'constants/app_routes.dart';
-
 import 'utils/local_storage.dart';
-import 'views/auth/login.dart';
 import 'views/auth/register.dart';
 import 'views/auth/register_otp.dart';
 import 'views/dashboard/dashboard.dart';
@@ -23,10 +22,7 @@ void main() async {
       ));
 
   //check
- await dotenv.load(fileName: ".env");
-
-
-
+  await dotenv.load(fileName: ".env");
 
   runApp(const MyApp());
 }
@@ -37,14 +33,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
 
-    
     Future<dynamic> alreadyAUser = showOnce();
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
@@ -59,6 +52,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
+
             home: FutureBuilder(
               builder: (ctx, snapshot) {
                 // Checking if future is resolved or not
@@ -70,13 +64,13 @@ class MyApp extends StatelessWidget {
                     switch (data) {
                       case 0:
                         return const WelcomeScreen();
-
                       case 1:
                         return const Register();
                       case 2:
                         return const RegisterOTP();
                       case 3:
-                        return const Dashboard();
+                        return NavBar(
+                            initialScreen: const Dashboard(), initialTab: 0);
                     }
                     // if we got our data
                   }
@@ -88,6 +82,7 @@ class MyApp extends StatelessWidget {
               },
               future: alreadyAUser,
             ),
+           
           ),
         );
       });
