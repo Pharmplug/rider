@@ -10,6 +10,8 @@ import '../../components/input_field.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import '../navbar/nav.dart';
+import 'widgets/header.dart';
 
 class Earnings extends StatefulWidget {
   const Earnings({super.key});
@@ -129,13 +131,17 @@ class _EarningsState extends State<Earnings> {
     final _getSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Pallete.whiteColor,
-      body: Stack(children: [
-        SafeArea(
-          child: SingleChildScrollView(
+      body: SafeArea(
+        child: Stack(children: [
+          SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(_getSize, context),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: buildHeader(_getSize, context,"Earning"),
+                ),
+                 SizedBox(height: _getSize.height * 0.025),
                 _buildToggleContainer(_getSize),
                 SizedBox(height: _getSize.height * 0.05),
                 _buildSummary(_getSize),
@@ -146,40 +152,16 @@ class _EarningsState extends State<Earnings> {
               ],
             ),
           ),
-        ),
-      ]),
-    );
-  }
-
-  Widget _buildHeader(Size _getSize, BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Profile()),
-            );
-          },
-          child: Image.asset(
-            AppImages.back,
-            width: _getSize.width * 0.15,
-            scale: 2,
-          ),
-        ),
-        Text(
-          'Earnings',
-          style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600),
-        ),
-      ],
+        ]),
+      ),
     );
   }
 
   Widget _buildToggleContainer(Size _getSize) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Container(
-        width: _getSize.width * 0.9,
+      
         height: _getSize.height * 0.04,
         padding: const EdgeInsets.all(1.0),
         decoration: BoxDecoration(

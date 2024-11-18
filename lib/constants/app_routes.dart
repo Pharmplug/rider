@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/views/auth/profile_details.dart';
+import 'package:pharmplug_rider/views/profile/edit_profile.dart';
 
 import '../views/auth/forgot_password.dart';
 import '../views/auth/login.dart';
@@ -19,6 +20,7 @@ class AppRoutes {
   static const loginScreen = '/loginScreen';
   static const forgotPassword = '/forgotPassword';
   static const profileDetails = '/profileDetails';
+  static const editProfile = '/editProfile';
   static Map<String, WidgetBuilder> routes() {
     return <String, WidgetBuilder>{
       AppRoutes.dashboardScreen: ((context) => const Dashboard()),
@@ -29,6 +31,7 @@ class AppRoutes {
       AppRoutes.resetotpScreen: ((context) => const ResetOTP()),
       AppRoutes.loginScreen: ((context) => const Login()),
       AppRoutes.profileDetails: ((context) => const ProfileDetails()),
+        AppRoutes.editProfile: ((context) => const EditProfile()),
     };
   }
 }

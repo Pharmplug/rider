@@ -30,20 +30,20 @@ class _ProfileState extends State<Profile> {
           children: [
             Row(
               children: [
-                Image.asset(
-                  AppImages.back,
-                  width: _getSize.width * 0.15,
-                  scale: 2,
-                  // fit: BoxFit.cover,
-                ),
+                SizedBox(width: 24,),
                 Expanded(
                     child:
                         Text('My Profile', style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600))),
-                Image.asset(
-                  AppImages.edit,
-                  width: _getSize.width * 0.2,
-                  scale: 2,
-                  // fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamed(AppRoutes.editProfile);
+                  },
+                  child: Image.asset(
+                    AppImages.edit,
+                    width: _getSize.width * 0.2,
+                    scale: 2,
+                    // fit: BoxFit.cover,
+                  ),
                 ),
               ],
             ),
@@ -78,7 +78,7 @@ class _ProfileState extends State<Profile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                   width: _getSize.width * 0.38,
                   decoration: BoxDecoration(
                       border: Border(

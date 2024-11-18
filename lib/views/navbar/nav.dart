@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/views/order/order.dart';
+import 'package:pharmplug_rider/views/profile/profile.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -144,7 +145,7 @@ class _NavBarState extends State<NavBar> {
                       minWidth: _getSize.width * 0.10,
                       onPressed: () {
                         setState(() {
-                          currentScreen = const Dashboard();
+                          currentScreen = const Profile();
                           currentTab = 4;
                         });
                       },
