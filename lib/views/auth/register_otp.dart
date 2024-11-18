@@ -120,6 +120,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         AppRoutes.profileDetails, (route) => false);
+                        
                   }),
               SizedBox(
                 height: _getSize.height * 0.03,

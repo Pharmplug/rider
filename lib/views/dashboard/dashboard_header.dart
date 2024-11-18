@@ -10,6 +10,7 @@ class DashboardHeader extends StatelessWidget {
   final bool isSwitched;
   final VoidCallback toggleAmountVisibility;
   final ValueChanged<bool> toggleSwitch;
+  final String name;
 
   const DashboardHeader({
     Key? key,
@@ -18,6 +19,7 @@ class DashboardHeader extends StatelessWidget {
     required this.isSwitched,
     required this.toggleAmountVisibility,
     required this.toggleSwitch,
+        required this.name,
   }) : super(key: key);
 
   @override
@@ -47,7 +49,7 @@ class DashboardHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Hello Melody,", style: AppFonts.text18Inter),
+                Text("Hello $name,", style: AppFonts.text18Inter),
                 Container(
                   decoration: const BoxDecoration(
                     color: Pallete.primaryColor,

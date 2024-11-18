@@ -114,8 +114,9 @@ class _LoginState extends State<Login> {
                   children: [
                     CustomInput(
                         hint: "Email Address",
+                        validator: Validators.emailValidator,
                         label: "Enter Email Address",
-                        onChanged: (c) => {Validators.emailValidator(c)},
+                
                         onSaved: (s) => {_loginData['email'] = s}),
                     SizedBox(
                       height: _getSize.height * 0.035,

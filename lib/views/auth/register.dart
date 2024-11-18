@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -131,9 +132,10 @@ class _RegisterState extends State<Register> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ButtonWithFunction(
                     text: "Continue",
-                    onPressed: () => {
+                    onPressed: () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.registerotpScreen, (route) => false)
+                              AppRoutes.registerotpScreen, (route) => false);
+                              saveOnce(2);
                         }),
               ),
               SizedBox(

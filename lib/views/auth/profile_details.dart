@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -139,7 +140,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ButtonWithFunction(
                     text: "Confirm",
-                    onPressed: () => {
+                    onPressed: () {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -148,7 +149,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                                       initialTab: 0,
                                     )),
                             (route) => false,
-                          )
+                          );
+                          saveOnce(3);
                         }),
               ),
               SizedBox(

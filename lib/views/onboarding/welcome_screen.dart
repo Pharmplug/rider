@@ -3,6 +3,7 @@ import 'package:pharmplug_rider/components/buttons.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:pharmplug_rider/constants/app_routes.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -31,9 +32,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ButtonWithFunction(
                 text: "Get Started",
-                onPressed: () => {
+                onPressed: () {
+                
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          AppRoutes.loginScreen, (route) => false)
+                          AppRoutes.loginScreen, (route) => false);
+                            saveOnce(1);
                     }),
           )
         ],

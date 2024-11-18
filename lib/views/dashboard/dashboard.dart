@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:pharmplug_rider/models/recent_deliveries.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_deliveries.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_tracker.dart';
 import '../../constants/resources.dart';
@@ -36,7 +37,15 @@ class _DashboardState extends State<Dashboard> {
       isSwitched = value;
     });
   }
-
+String name ="";
+  getUserData()async{
+  name = await showUserId();
+  }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +57,7 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             children: [
               DashboardHeader(
+                name: name,
                 amountVisible: amountVisible,
                 amount: amount,
                 isSwitched: isSwitched,
