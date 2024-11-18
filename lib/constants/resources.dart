@@ -11,6 +11,11 @@ NumberFormat formatter = NumberFormat.decimalPatternDigits(
 
 String baseURL =dotenv.env['BASE_URL']!;
 
+
+String getCurrency() {
+  return '₦'; // Unicode character for Naira symbol
+}
+
 String apiKey = dotenv.env['API_KEY']!; 
 
 final List<Order> orders = [
