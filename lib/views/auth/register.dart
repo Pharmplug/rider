@@ -16,7 +16,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  bool passwordVisible = false;
+  String? password;
+bool passwordVisible = false;
  bool confirmPasswordVisible = false;
   final _registerFormKey = GlobalKey<FormState>();
   @override
@@ -72,7 +73,16 @@ class _RegisterState extends State<Register> {
                         hint: "Email Address",
                         label: "Enter Email Address",
                         onChanged: (c) => {},
-                        onSaved: (s) => {}),
+                        onSaved: (s) => {},
+                        validator: (value){
+                          if(value == null || value.isEmpty){
+                            return "Please enter your email address.";
+                          }else if (!RegExp(r"^[^@]+@[^@]+\.[^@]+").hasMatch(value)){
+                            return 'Enter a valid email adress.';
+                          }
+                          return null;
+                        },
+                        ),
                     SizedBox(
                       height: _getSize.height * 0.035,
                     ),
@@ -80,7 +90,18 @@ class _RegisterState extends State<Register> {
                         hint: "Password",
                         label: "Enter Password",
                         obsecure: !passwordVisible,
-                        onChanged: (c) => {},
+                        onChanged: (c) => password = c,
+                        validator: (value) {
+                          if (value == null || value.isEmpty){
+                            return "Password cannot be empty.";
+                          }
+                          // Regular expression for password validation
+                          final passwordRegex = RegExp(r"^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$");
+                          if (!passwordRegex.hasMatch(value)){
+                            return "Password must be at least 8 characters, include one uppercase letter and one number.";
+                          }
+                          return null;
+                        },
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
@@ -96,7 +117,7 @@ class _RegisterState extends State<Register> {
                                   : Icons.visibility_off,
                               color: Pallete.disabledColor, size: 18,
                             )),
-                        onSaved: (s) => {}),
+                        onSaved: (s) => password = s),
                     SizedBox(
                       height: _getSize.height * 0.02,
                     ),
@@ -106,6 +127,12 @@ class _RegisterState extends State<Register> {
                         label: "Enter Password",
                         obsecure: !confirmPasswordVisible,
                         onChanged: (c) => {},
+                        validator: (value){
+                          if(value != password ){
+                            return "Password do not match.";
+                          }
+                          return null;
+                        },
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
@@ -133,10 +160,15 @@ class _RegisterState extends State<Register> {
                 child: ButtonWithFunction(
                     text: "Continue",
                     onPressed: () {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
+                        if(_registerFormKey.currentState?.validate() ?? false){
+                          _registerFormKey.currentState?.save();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
                               AppRoutes.registerotpScreen, (route) => false);
                               saveOnce(2);
-                        }),
+                        }
+                        }
+                          
+                        ),
               ),
               SizedBox(
                 height: _getSize.height * 0.15,
