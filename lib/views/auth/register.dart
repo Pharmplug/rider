@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/utils/local_storage.dart';
+import 'package:pharmplug_rider/utils/validator.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -74,14 +75,7 @@ bool passwordVisible = false;
                         label: "Enter Email Address",
                         onChanged: (c) => {},
                         onSaved: (s) => {},
-                        validator: (value){
-                          if(value == null || value.isEmpty){
-                            return "Please enter your email address.";
-                          }else if (!RegExp(r"^[^@]+@[^@]+\.[^@]+").hasMatch(value)){
-                            return 'Enter a valid email adress.';
-                          }
-                          return null;
-                        },
+                        validator: Validators.emailValidator,
                         ),
                     SizedBox(
                       height: _getSize.height * 0.035,
@@ -91,17 +85,7 @@ bool passwordVisible = false;
                         label: "Enter Password",
                         obsecure: !passwordVisible,
                         onChanged: (c) => password = c,
-                        validator: (value) {
-                          if (value == null || value.isEmpty){
-                            return "Password cannot be empty.";
-                          }
-                          // Regular expression for password validation
-                          final passwordRegex = RegExp(r"^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$");
-                          if (!passwordRegex.hasMatch(value)){
-                            return "Password must be at least 8 characters, include one uppercase letter and one number.";
-                          }
-                          return null;
-                        },
+                        validator: Validators.passwordValidator,
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
