@@ -17,7 +17,13 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String? password;
+  TextEditingController _controller = TextEditingController();
+
+ final Map<String, dynamic> _registerData = {
+    'email': '',
+    'password': '',
+  };
+
 bool passwordVisible = false;
  bool confirmPasswordVisible = false;
   final _registerFormKey = GlobalKey<FormState>();
@@ -74,8 +80,9 @@ bool passwordVisible = false;
                         hint: "Email Address",
                         label: "Enter Email Address",
                         onChanged: (c) => {},
-                        onSaved: (s) => {},
+                        onSaved: (s) => {{_registerData['email'] = s}},
                         validator: Validators.emailValidator,
+                        myController:_controller,
                         ),
                     SizedBox(
                       height: _getSize.height * 0.035,
@@ -84,7 +91,7 @@ bool passwordVisible = false;
                         hint: "Password",
                         label: "Enter Password",
                         obsecure: !passwordVisible,
-                        onChanged: (c) => password = c,
+                        onChanged: (c) => {_registerData['password'] = c},
                         validator: Validators.passwordValidator,
                         suffixIcon: IconButton(
                             onPressed: () {
@@ -101,7 +108,7 @@ bool passwordVisible = false;
                                   : Icons.visibility_off,
                               color: Pallete.disabledColor, size: 18,
                             )),
-                        onSaved: (s) => password = s),
+                        onSaved: (s) => {_registerData['email'] = s}),
                     SizedBox(
                       height: _getSize.height * 0.02,
                     ),
@@ -112,7 +119,7 @@ bool passwordVisible = false;
                         obsecure: !confirmPasswordVisible,
                         onChanged: (c) => {},
                         validator: (value){
-                          if(value != password ){
+                          if(value != _registerData['password'] ){
                             return "Password do not match.";
                           }
                           return null;
@@ -146,8 +153,13 @@ bool passwordVisible = false;
                     onPressed: () {
                         if(_registerFormKey.currentState?.validate() ?? false){
                           _registerFormKey.currentState?.save();
+
+                          // Capture the email from the TextField
+                          String email = _controller.text.trim();
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.registerotpScreen, (route) => false);
+                              AppRoutes.registerotpScreen, 
+                              arguments: email,
+                              (route) => false);
                               saveOnce(2);
                         }
                         }

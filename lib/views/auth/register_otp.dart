@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:pharmplug_rider/components/buttons.dart';
@@ -15,10 +17,34 @@ class RegisterOTP extends StatefulWidget {
 }
 
 class _RegisterOTPState extends State<RegisterOTP> {
-  var time = "03:07";
+  int _resend = 20;
+  late Timer _timer;
+  // int _resendCount = 0;
   var otp = "";
+  final String correctOtp = "12345";
+
+  @override
+  void initState() {
+    super.initState();
+    resendCodeCountdown();
+  }
+
+  void resendCodeCountdown() async {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_resend == 0) {
+        _timer.cancel();
+      } else {
+        _resend--;
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String email =
+        ModalRoute.of(context)?.settings.arguments as String? ??
+            "ayoseunsolomon@gmail.com";
     final _getSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Pallete.backgroundColor,
@@ -60,9 +86,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
                             "We have sent a mail with a 6-digit activation code to your email address",
                         style: AppFonts.text14InterHint),
                     TextSpan(text: "(", style: AppFonts.text14InterHint),
-                    TextSpan(
-                        text: "ayoseunsolomon@gmail.com",
-                        style: AppFonts.text14InterGreen),
+                    TextSpan(text: email, style: AppFonts.text14InterGreen),
                     TextSpan(text: ")", style: AppFonts.text14InterHint),
                   ])),
                   SizedBox(
@@ -78,19 +102,34 @@ class _RegisterOTPState extends State<RegisterOTP> {
                             style: AppFonts.text14InterHint.copyWith(),
                           ),
                           Text(
-                            time,
+                            "$_resend",
                             style: AppFonts.text14InterGreen
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                      Text(
-                        "Resend",
-                        style: AppFonts.text14InterGreen.copyWith(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Pallete.secondaryColor),
-                      )
+                      _resend == 0
+                          ? GestureDetector(
+                              onTap: () {
+                                // Resend code action
+                                setState(() {
+                                  _resend = 20; // Reset the countdown
+                                });
+                                resendCodeCountdown();
+                              },
+                              child: Text(
+                                "Resend",
+                                style: AppFonts.text14InterGreen.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Pallete.secondaryColor,
+                                  color: _resend == 0
+                                      ? Pallete.secondaryColor
+                                      : Colors.grey,
+                                ),
+                              ),
+                            )
+                          : SizedBox.shrink()
                     ],
                   )
                 ],
@@ -105,7 +144,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
                   fieldWidth: 45,
                   fieldStyle: FieldStyle.box,
                   outlineBorderRadius: 10,
-                  style:AppFonts.text14Inter,
+                  style: AppFonts.text14Inter,
                   onChanged: (pin) {
                     setState(() {
                       otp = pin;
@@ -118,9 +157,20 @@ class _RegisterOTPState extends State<RegisterOTP> {
               ButtonWithFunction(
                   text: "Verify Email Address",
                   onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        AppRoutes.profileDetails, (route) => false);
-                        
+                    if (otp.length == 5) {
+                      if (otp == correctOtp) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            AppRoutes.profileDetails, (route) => false);
+                      } else {
+                        // Ensure SnackBar is tied to the correct context
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Incorrect OTP, please try again.")));
+                      }
+                    } else {
+                      // Show error if OTP length is not 6
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Please enter a 6-digit OTP.")));
+                    }
                   }),
               SizedBox(
                 height: _getSize.height * 0.03,
@@ -144,5 +194,13 @@ class _RegisterOTPState extends State<RegisterOTP> {
         ),
       )),
     );
+  }
+
+  // dispose:-------------------------------------------------------------------
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    _timer.cancel();
+    super.dispose();
   }
 }

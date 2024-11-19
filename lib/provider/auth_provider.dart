@@ -25,6 +25,7 @@ class AuthProvider extends ChangeNotifier {
       data = responseData;
 
       if (responseData['statusCode'] == 200) {
+        data = responseData;
         notifyListeners();
         print(data);
         data;
