@@ -194,8 +194,11 @@ class _LoginState extends State<Login> {
                 child: ButtonWithFunction(
                     text: "Sign in",
                     onPressed: () => {
+                     if(_loginFormKey.currentState?.validate() ?? false){
+                          _loginFormKey.currentState?.save(),
+                          
                           LoginUtil.login(_loginFormKey, context, _loginData)
-                       
+                     }
                         }),
               ),
               SizedBox(

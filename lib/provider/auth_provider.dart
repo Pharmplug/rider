@@ -30,7 +30,7 @@ class AuthProvider extends ChangeNotifier {
         print(data);
         data;
       } else {
-        data;
+        data = responseData;
       }
     } catch (e) {
       notifyListeners();
@@ -75,12 +75,15 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
 
         data = responseData;
+        print(responseData);
       } else {
         data = responseData;
+        print(responseData);
       }
     } catch (e) {
       notifyListeners();
       data = {'error': e};
+      print(data);
     }
     return data;
   }
@@ -124,4 +127,28 @@ class AuthProvider extends ChangeNotifier {
     }
     return data;
   }
+
+  Future<Map<String, dynamic>> fetchProfile(id, accessToken) async {
+  dynamic data;
+
+  try {
+    // Call the API to fetch profile
+    var responseData = await AuthAPI.getProfile(id, accessToken);
+
+    print(responseData);
+    if (responseData['statusCode'] == 200) {
+      // Profile fetched successfully
+      data = responseData;
+    } else {
+      // Handle error responses
+      data = responseData;
+    }
+  } catch (e) {
+    // Catch and handle any errors
+    data = {'error': e.toString()};
+  }
+
+  return data;
+}
+
 }

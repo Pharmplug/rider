@@ -162,7 +162,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             AppRoutes.profileDetails, (route) => false);
                       } else {
-                        // Ensure SnackBar is tied to the correct context
+                        // Ensure  is tied to the correct context
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Incorrect OTP, please try again.")));
                       }
