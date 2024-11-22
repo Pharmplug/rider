@@ -9,25 +9,23 @@ import '../../views/navbar/nav.dart';
 import '../app_utils.dart';
 import '../local_storage.dart';
 
-class LoginUtil {
-  static Future<String> login(GlobalKey<FormState> formkey,
-      BuildContext context, Map<String, dynamic> loginData) async {
-     print(loginData);
-    //var token2 = await showToken();
-    //var id2 = await showId();
-
-    var result;
-    await saveEmail(loginData['email']);
+class UserDetailsUtil {
+  static Future<void> userDetails(GlobalKey<FormState> formkey,
+      BuildContext context, Map<dynamic, dynamic> userData) async {
+    print(userData);
 
     if (formkey.currentState!.validate()) {
       formkey.currentState!.save();
 
       AppUtils.showLoader(context);
       Provider.of<AuthProvider>(context, listen: false)
-          .login(
-        loginData['email'].trim(),
-        loginData['password'].trim(),
-      )
+          .register(
+              userData['firstName'].trim(),
+              userData['lastName'].trim(),
+              userData['password'].trim(),
+              userData['confirmPassword'].trim(),
+              userData['email'].trim(),
+              userData['phone'].trim())
           .then((value) async {
         print(value);
         Navigator.of(context).pop();
@@ -36,24 +34,10 @@ class LoginUtil {
           print("yes ${value}");
           // formkey.currentState!.reset();
           await saveUserId(value['data']['customercode'].toString());
-          await saveEmail(value['data']['email']);
-          await saveName(value['data']['name']);
-          await savePhone(value['data']['phone']);
-          await saveSurName(value['data']['surname']);
-          await saveRef(value['data']['refcode']);
-          await saveOnce(3);
-          await saveStatus(value['data']['status']);
+
           await saveAccessToken(value['data']['token']);
 
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NavBar(
-                      initialScreen: const Dashboard(),
-                      initialTab: 0,
-                    )),
-            (route) => false,
-          );
+          Navigator.of(context).pushNamed(AppRoutes.registerotpScreen);
         } else {
           if (value['statusCode'] == 404) {
             AppUtils.showAlertDialog(
@@ -76,7 +60,7 @@ class LoginUtil {
                     .pushNamed(AppRoutes.registerotpScreen));
           }
 
-          if (value['statusCode'] == 302 && value['data']['status'] == false) {
+          if (value['statusCode'] == 302) {
             AppUtils.showAlertDialog(
                 context,
                 'Oops, something isn\'t right!',
@@ -89,7 +73,5 @@ class LoginUtil {
         }
       });
     }
-
-    return result;
   }
 }

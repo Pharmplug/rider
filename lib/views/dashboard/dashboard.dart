@@ -39,12 +39,17 @@ class _DashboardState extends State<Dashboard> {
   }
 String name ="";
   getUserData()async{
-  name = await showUserId();
+     name = await showName();
+    setState(() {
+      name;
+    });
+ 
   }
 @override
   void initState() {
-    // TODO: implement initState
+       getUserData();
     super.initState();
+  
   }
 
   @override
@@ -57,7 +62,7 @@ String name ="";
           child: Column(
             children: [
               DashboardHeader(
-                name: name,
+                name:name,
                 amountVisible: amountVisible,
                 amount: amount,
                 isSwitched: isSwitched,

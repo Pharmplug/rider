@@ -40,7 +40,7 @@ class AuthProvider extends ChangeNotifier {
     return data;
   }
 
- Future<Map<String, dynamic>> registerOTP(String id, String otp) async {
+ Future<Map<String, dynamic>> registerOTP(String otp) async {
   dynamic data;
 
   try {
@@ -48,12 +48,12 @@ class AuthProvider extends ChangeNotifier {
     if (accessToken == null) {
       throw Exception("Access token is required");
     }
-
+    var id = await showUserId();
     // Call OTPVerification API
     var responseData = await AuthAPI.OTPVerification(
       id:id,
       otp:otp,
-      accessToken: accessToken!,
+
     );
 
     if (responseData['statusCode'] == 200) {

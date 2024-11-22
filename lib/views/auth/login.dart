@@ -146,7 +146,9 @@ class _LoginState extends State<Login> {
                                   : Icons.visibility_off,
                               color: Pallete.disabledColor, size: 18,
                             )),
-                        onSaved: (s) => {}),
+                        onSaved: (s) => {
+                              _loginData['password'] = s
+                        }),
                     SizedBox(
                       height: _getSize.height * 0.02,
                     ),

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_routes.dart';
 
@@ -209,26 +210,32 @@ class _ProfileState extends State<Profile> {
             SizedBox(
               height: _getSize.height * 0.005,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              width: _getSize.width * 0.78,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                  color: Color(0XFFEBF9FB),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(AppImages.rep, scale: 4,
-                  width: _getSize.width * 0.08,),
-                  Expanded(child: Text('Support', style: AppFonts.text14Barlow.copyWith(color: Pallete.primaryColor))),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Image.asset(
-                      AppImages.caretRight,
-                      scale: 2,
-                      ),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                clearData();
+                Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.loginScreen, (route) => false);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                width: _getSize.width * 0.78,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                    color: Color(0XFFEBF9FB),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.rep, scale: 4,
+                    width: _getSize.width * 0.08,),
+                    Expanded(child: Text('Support', style: AppFonts.text14Barlow.copyWith(color: Pallete.primaryColor))),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Image.asset(
+                        AppImages.caretRight,
+                        scale: 2,
+                        ),
+                    )
+                  ],
+                ),
               ),
             )
           ],

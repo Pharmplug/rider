@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
+import 'package:pharmplug_rider/utils/auth_utils/register_util.dart';
 import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/utils/validator.dart';
 import '../../provider/auth_provider.dart';
@@ -11,7 +11,6 @@ import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
 import '../../utils/app_utils.dart';
 import 'package:provider/provider.dart';
-
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -26,64 +25,12 @@ class _RegisterState extends State<Register> {
   final Map<String, dynamic> _registerData = {
     'email': '',
     'password': '',
+    'confirmPassword': '',
   };
 
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
   final _registerFormKey = GlobalKey<FormState>();
-
-  Future<void> _register() async {
-    if (_registerFormKey.currentState?.validate() ?? false) {
-      _registerFormKey.currentState?.save();
-
-      // Show a loading spinner
-      AppUtils.showLoader(context);
-
-      try {
-        final authProvider = Provider.of<AuthProvider>(context, listen: false);
-        final response = await authProvider.register(
-          'melody', // First name 
-          'francis', // Last name 
-          _registerData['password'].trim(),
-          _registerData['password'].trim(), // Confirm password
-          _registerData['email'].trim(),
-          '09019312722', // Phone 
-        );
-
-        Navigator.of(context).pop(); // Dismiss the loader
-
-        if (response['statusCode'] == 200) {
-          // Navigate to OTP verification screen with email as argument
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRoutes.registerotpScreen,
-            arguments: _registerData['email'],
-            (route) => false,
-          );
-          await saveOnce(2);
-        } else {
-          // Show error message
-          AppUtils.showAlertDialog(
-            context,
-            'Registration Failed',
-            response['error'] ?? 'An error occurred. Please try again.',
-            'Close',
-            '',
-            () {},
-          );
-        }
-      } catch (e) {
-        Navigator.of(context).pop(); // Dismiss the loader
-        AppUtils.showAlertDialog(
-          context,
-          'Error',
-          'An unexpected error occurred. Please try again.',
-          'Close',
-          '',
-          () {},
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,59 +92,60 @@ class _RegisterState extends State<Register> {
                         height: _getSize.height * 0.035,
                       ),
                       CustomInput(
-                        hint: "Password",
-                        label: "Enter Password",
-                        obsecure: !passwordVisible,
-                        onChanged: (c) => _registerData['password'] = c,
-                        validator: Validators.passwordValidator,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              passwordVisible = !passwordVisible;
-                            });
-                          },
-                          icon: Icon(
-                            passwordVisible
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off,
-                            color: Pallete.disabledColor,
-                            size: 18,
+                          hint: "Password",
+                          label: "Enter Password",
+                          obsecure: !passwordVisible,
+                          onChanged: (c) => _registerData['password'] = c,
+                          validator: Validators.passwordValidator,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              passwordVisible
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off,
+                              color: Pallete.disabledColor,
+                              size: 18,
+                            ),
                           ),
-                        ),
-                         onSaved: (s) => {_registerData['password'] = s}
-                      ),
-                      
+                          onSaved: (s) => {_registerData['password'] = s}),
                       SizedBox(
                         height: _getSize.height * 0.02,
                       ),
                       CustomInput(
-                        hint: "Confirm Password",
-                        label: "Enter Password",
-                        obsecure: !confirmPasswordVisible,
-                        onChanged: (c) {},
-                        validator: (value) {
-                          if (value != _registerData['password']) {
-                            return "Passwords do not match.";
-                          }
-                          return null;
-                        },
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              confirmPasswordVisible =
-                                  !confirmPasswordVisible;
-                            });
+                          hint: "Confirm Password",
+                          label: "Enter Password",
+                          obsecure: !confirmPasswordVisible,
+                          onChanged: (c) {
+                            _registerData['confirmPassword'] = c;
                           },
-                          icon: Icon(
-                            confirmPasswordVisible
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off,
-                            color: Pallete.disabledColor,
-                            size: 18,
+                          validator: (value) {
+                            if (value != _registerData['password']) {
+                              return "Passwords do not match.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                confirmPasswordVisible =
+                                    !confirmPasswordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              confirmPasswordVisible
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off,
+                              color: Pallete.disabledColor,
+                              size: 18,
+                            ),
                           ),
-                        ),
-                         onSaved: (s) => {_registerData['password'] = s}
-                      ),
+                          onSaved: (s) =>
+                              {_registerData['confirmPassword'] = s}),
                     ],
                   ),
                 ),
@@ -208,7 +156,10 @@ class _RegisterState extends State<Register> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ButtonWithFunction(
                     text: "Continue",
-                    onPressed: _register,
+                    onPressed: () {
+                      RegisterUtil.register(
+                          _registerFormKey, context, _registerData);
+                    },
                   ),
                 ),
                 SizedBox(

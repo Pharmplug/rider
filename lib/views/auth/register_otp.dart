@@ -6,6 +6,7 @@ import 'package:pharmplug_rider/components/buttons.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:otp_text_field/otp_field.dart';
+import 'package:pharmplug_rider/utils/auth_utils/register_otp_util.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -42,28 +43,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
       }
     });
   }
-  Future<void> verifyOtp(String email, String otp) async {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    try {
-      final response = await authProvider.registerOTP(email, otp);
-      if (response['statusCode'] == 200) {
-        // OTP verified successfully
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRoutes.profileDetails, (route) => false);
-      } else {
-        // Show error from response
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response['data'] ?? "OTP verification failed")),
-        );
-      }
-    } catch (e) {
-      // Handle exceptions
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("An error occurred: $e")),
-      );
-    }
-  }
   @override
   Widget build(BuildContext context) {
     final String email =
@@ -182,7 +162,8 @@ class _RegisterOTPState extends State<RegisterOTP> {
                   text: "Verify Email Address",
                     onPressed: () {
                     if (otp.length == 6) {
-                      verifyOtp(email, otp);
+                      RegisterOTPUtil.registerOTP(context, otp);
+                     
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please enter a 6-digit OTP.")),

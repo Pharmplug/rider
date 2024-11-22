@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../constants/resources.dart';
 
@@ -8,8 +9,8 @@ class AuthAPI {
   static Future<Map<String, dynamic>> OTPVerification({
   required String id,
   required String otp,
-  required String accessToken, 
 }) async {
+  var accessToken =await showAccessToken();
     var response = await http.put(
       Uri.parse('$baseURL/api/users/verify-otp'),
       headers: <String, String>{
