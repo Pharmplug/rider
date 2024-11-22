@@ -8,6 +8,7 @@ import '../network/auth.dart';
 import '../utils/local_storage.dart';
 
 class AuthProvider extends ChangeNotifier {
+  String? accessToken;
   // final Map<String, dynamic> serverErrorResult = {
   //   'status': false,
   //   'message': 'Sorry, something went wrong. Contact the Admin',
@@ -39,27 +40,37 @@ class AuthProvider extends ChangeNotifier {
     return data;
   }
 
-  Future<Map<String, dynamic>> registerOTP(id,otp) async {
-    dynamic data;
+ Future<Map<String, dynamic>> registerOTP(String id, String otp) async {
+  dynamic data;
 
-    notifyListeners();
-
-    try {
-      var responseData  = await AuthAPI.OTPVerfication(id,otp);
-      
-      if (responseData['statusCode'] == 200) {
-        notifyListeners();
-        data = responseData;
-        print(data);
-      } else {
-        data = responseData;
-      }
-    } catch (e) {
-      notifyListeners();
-      data = {'error': e};
+  try {
+    // Ensure accessToken is available
+    if (accessToken == null) {
+      throw Exception("Access token is required");
     }
-    return data;
+
+    // Call OTPVerification API
+    var responseData = await AuthAPI.OTPVerification(
+      id:id,
+      otp:otp,
+      accessToken: accessToken!,
+    );
+
+    if (responseData['statusCode'] == 200) {
+      data = responseData; // Success response
+      print("Success: $data");
+    } else {
+      data = responseData; // Error response
+      print("Error: $data");
+    }
+  } catch (e) {
+    data = {'error': e.toString()};
+    print("Exception: $data");
   }
+
+  return data;
+}
+
 
   Future<Map<String, dynamic>> register(
       firstName, lastName, password, confirmPassword, email, phone) async {

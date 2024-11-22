@@ -5,11 +5,16 @@ import '../constants/resources.dart';
 
 class AuthAPI {
 
-  static Future OTPVerfication(id, otp) async {
+  static Future<Map<String, dynamic>> OTPVerification({
+  required String id,
+  required String otp,
+  required String accessToken, 
+}) async {
     var response = await http.put(
-      Uri.parse('$baseURL/users/verify-otp'),
+      Uri.parse('$baseURL/api/users/verify-otp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $accessToken',
       },
       body: jsonEncode(<String, String>{"id": id, "otpData": otp}),
     );
@@ -31,7 +36,7 @@ class AuthAPI {
     };
     print(payload);
     var response = await http.post(
-      Uri.parse('$baseURL/users/register'),
+      Uri.parse('$baseURL/api/users/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -46,7 +51,7 @@ class AuthAPI {
     print(data);
     print(password);
     var response = await http.post(
-      Uri.parse('$baseURL/users/login'),
+      Uri.parse('$baseURL/api/users/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -60,7 +65,7 @@ class AuthAPI {
 
   static Future forgotPassword(email) async {
     var response = await http.post(
-        Uri.parse('$baseURL/users/forgot-password'),
+        Uri.parse('$baseURL/api/users/forgot-password'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -74,7 +79,7 @@ class AuthAPI {
 
   static Future resetPassword(id, password) async {
     var response = await http.patch(
-      Uri.parse('$baseURL/users/password-reset'),
+      Uri.parse('$baseURL/api/users/password-reset'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

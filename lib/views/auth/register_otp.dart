@@ -8,6 +8,9 @@ import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:otp_text_field/otp_field.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import 'package:provider/provider.dart';
+import '../../provider/auth_provider.dart';
+
 
 class RegisterOTP extends StatefulWidget {
   const RegisterOTP({Key? key}) : super(key: key);
@@ -21,7 +24,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
   late Timer _timer;
   // int _resendCount = 0;
   var otp = "";
-  final String correctOtp = "12345";
+  final String correctOtp = "";
 
   @override
   void initState() {
@@ -39,7 +42,28 @@ class _RegisterOTPState extends State<RegisterOTP> {
       }
     });
   }
+  Future<void> verifyOtp(String email, String otp) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
+    try {
+      final response = await authProvider.registerOTP(email, otp);
+      if (response['statusCode'] == 200) {
+        // OTP verified successfully
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRoutes.profileDetails, (route) => false);
+      } else {
+        // Show error from response
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response['data'] ?? "OTP verification failed")),
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred: $e")),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final String email =
@@ -138,7 +162,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
                 height: _getSize.height * 0.1,
               ),
               OTPTextField(
-                  length: 5,
+                  length: 6,
                   width: MediaQuery.of(context).size.width,
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldWidth: 45,
@@ -156,22 +180,14 @@ class _RegisterOTPState extends State<RegisterOTP> {
               ),
               ButtonWithFunction(
                   text: "Verify Email Address",
-                  onPressed: () {
-                    if (otp.length == 5) {
-                      if (otp == correctOtp) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            AppRoutes.profileDetails, (route) => false);
-                      } else {
-                        // Ensure  is tied to the correct context
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Incorrect OTP, please try again.")));
-                      }
+                    onPressed: () {
+                    if (otp.length == 6) {
+                      verifyOtp(email, otp);
                     } else {
-                      // Show error if OTP length is not 6
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Please enter a 6-digit OTP.")));
-                    }
-                  }),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please enter a 6-digit OTP.")),
+                      );
+                    }}                  ),
               SizedBox(
                 height: _getSize.height * 0.03,
               ),

@@ -42,12 +42,12 @@ class _RegisterState extends State<Register> {
       try {
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
         final response = await authProvider.register(
-          '', // First name 
-          '', // Last name 
+          'melody', // First name 
+          'francis', // Last name 
           _registerData['password'].trim(),
           _registerData['password'].trim(), // Confirm password
           _registerData['email'].trim(),
-          '', // Phone 
+          '09019312722', // Phone 
         );
 
         Navigator.of(context).pop(); // Dismiss the loader
