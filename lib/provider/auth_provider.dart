@@ -121,6 +121,7 @@ class AuthProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> changePassword(password) async {
     dynamic data;
     notifyListeners();
+   
     var id = await showUserId();
     print(id);
     print(password);

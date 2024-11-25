@@ -96,10 +96,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: ButtonWithFunction(
                     text: "Reset Password",
                     onPressed: () => {
-                      ForgotPasswordUtil.forgotPassword(_forgotPasswordFormKey,
-                            context, _forgotPasswordData)
-                         
-                        }),
+                      if(_forgotPasswordFormKey.currentState?.validate() ?? false) {
+                        _forgotPasswordFormKey.currentState?.save(),// Save form values
+                        ForgotPasswordUtil.forgotPassword(_forgotPasswordFormKey, context, _forgotPasswordData)
+                      }
+                    })
               ),
             ],
           ),

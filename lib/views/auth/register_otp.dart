@@ -7,6 +7,7 @@ import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:pharmplug_rider/utils/auth_utils/register_otp_util.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class RegisterOTP extends StatefulWidget {
 }
 
 class _RegisterOTPState extends State<RegisterOTP> {
+  var email = '';
   int _resend = 20;
   late Timer _timer;
   // int _resendCount = 0;
@@ -31,9 +33,11 @@ class _RegisterOTPState extends State<RegisterOTP> {
   void initState() {
     super.initState();
     resendCodeCountdown();
+
   }
 
   void resendCodeCountdown() async {
+    email = await showEmail();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_resend == 0) {
         _timer.cancel();
@@ -46,9 +50,7 @@ class _RegisterOTPState extends State<RegisterOTP> {
 
   @override
   Widget build(BuildContext context) {
-    final String email =
-        ModalRoute.of(context)?.settings.arguments as String? ??
-            "ayoseunsolomon@gmail.com";
+
     final _getSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Pallete.backgroundColor,

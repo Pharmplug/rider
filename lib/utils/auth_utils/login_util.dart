@@ -10,13 +10,13 @@ import '../app_utils.dart';
 import '../local_storage.dart';
 
 class LoginUtil {
-  static Future<String> login(GlobalKey<FormState> formkey,
+  static Future<void> login(GlobalKey<FormState> formkey,
       BuildContext context, Map<String, dynamic> loginData) async {
      print(loginData);
     //var token2 = await showToken();
     //var id2 = await showId();
 
-    var result;
+    // var result;
     await saveEmail(loginData['email']);
 
     if (formkey.currentState!.validate()) {
@@ -90,6 +90,6 @@ class LoginUtil {
       });
     }
 
-    return result;
+    // return result;
   }
 }

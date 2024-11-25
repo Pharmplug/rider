@@ -9,7 +9,7 @@ import '../app_utils.dart';
 import '../local_storage.dart';
 
 class ForgotPasswordUtil {
-  static Future<String> forgotPassword(GlobalKey<FormState> formkey,
+  static Future<void> forgotPassword(GlobalKey<FormState> formkey,
       BuildContext context, Map<String, dynamic> forgotData) async {
     var result;
     if (formkey.currentState!.validate()) {
@@ -36,14 +36,13 @@ class ForgotPasswordUtil {
           );
         } else {
           //TO DO
-          await saveUserId(value['data']['_id']);
-          await saveEmail(value['data']['email']);
-
+          await saveUserId(value['data']['userId']);
+          await saveAccessToken(value['data']['token']);
+          
           // IsFirstTime().once(2);
           Navigator.of(context).pushNamed(AppRoutes.resetotpScreen);
         }
       });
     }
-    return result;
   }
 }

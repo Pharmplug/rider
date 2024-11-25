@@ -65,6 +65,7 @@ class AuthAPI {
   }
 
   static Future forgotPassword(email) async {
+    
     var response = await http.post(
         Uri.parse('$baseURL/api/users/forgot-password'),
         headers: <String, String>{
@@ -79,10 +80,12 @@ class AuthAPI {
   }
 
   static Future resetPassword(id, password) async {
+    var accessToken =await showAccessToken();
     var response = await http.patch(
       Uri.parse('$baseURL/api/users/password-reset'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $accessToken',
       },
       body: jsonEncode(<String, String>{"id": id, "password": password}),
     );
