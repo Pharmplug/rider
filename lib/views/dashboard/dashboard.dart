@@ -5,6 +5,7 @@ import 'package:pharmplug_rider/models/recent_deliveries.dart';
 import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_deliveries.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_tracker.dart';
+import 'package:provider/provider.dart';
 import '../../constants/resources.dart';
 import 'dashboard_header.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
@@ -49,13 +50,13 @@ String name ="";
   void initState() {
        getUserData();
     super.initState();
-  
   }
 
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
-    return Scaffold(
+  
+        return Scaffold(
       backgroundColor: Pallete.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -64,7 +65,7 @@ String name ="";
               DashboardHeader(
                 name:name,
                 amountVisible: amountVisible,
-                amount: amount,
+                amount:amount,
                 isSwitched: isSwitched,
                 toggleAmountVisibility: toggleAmountVisibility,
                 toggleSwitch: toggleSwitch,

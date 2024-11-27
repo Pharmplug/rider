@@ -95,6 +95,17 @@ class AuthAPI {
     return parsedResponse;
   }
 
+  static Future fetchDashboardData() async {
+      var response = await http.get(Uri.parse('$baseURL/api/dashboard'),
+      
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      );
+      return response;
+  }
+
+
   // Fetch User Profile
   static Future getProfile(id, accessToken) async {
     try {

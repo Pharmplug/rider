@@ -3,6 +3,7 @@ import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:provider/provider.dart';
 
 class DashboardHeader extends StatelessWidget {
   final bool amountVisible;

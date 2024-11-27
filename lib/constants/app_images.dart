@@ -27,5 +27,8 @@ class AppImages {
   static const placeHolder = 'assets/images/placeholder.png';
   static const profilePic = 'assets/images/profilepic.png';
   static const bike = 'assets/images/bike.png';
+  static const onboadingSequence = 'assets/images/sequence1.png';
+  static const onboadingSequence2 = 'assets/images/sequence2.png';
+  static const completeSequence = 'assets/images/complete_sequence.png';
 
 }

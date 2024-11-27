@@ -7,6 +7,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import 'package:pharmplug_rider/utils/validator.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -80,6 +81,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         label: "Enter Password",
                         obsecure: !passwordVisible,
                         onChanged: (c) => {},
+                        validator: Validators.passwordValidator,
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
@@ -105,6 +107,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                         label: "Enter Password",
                         obsecure: !confirmPasswordVisible,
                         onChanged: (c) => {},
+                        //  validator: (value) {
+                        //     if (value != _resetData['password']) {
+                        //       return "Passwords do not match.";
+                        //     } else {
+                        //       return null;
+                        //     }
+                        //   },
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
@@ -113,6 +122,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 confirmPasswordVisible = !confirmPasswordVisible;
                               });
                             },
+                           
                             icon: Icon(
                               // if password visibilty is default false set icon to visible icon or else set to hide icon
                               confirmPasswordVisible

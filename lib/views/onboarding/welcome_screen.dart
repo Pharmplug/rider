@@ -35,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onPressed: () {
                 
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          AppRoutes.loginScreen, (route) => false);
+                          AppRoutes.onboarding, (route) => false);
                             saveOnce(1);
                     }),
           )

@@ -29,17 +29,16 @@ class ResetPasswordUtil {
            Navigator.of(context).pushNamed(AppRoutes.loginScreen);
           saveOnce(3);
         } else {
-           AppUtils.errorDialog(
+          if(value["statusCode"] == 404){
+           AppUtils.showAlertDialog(
             context,
             "Something isn't right!",
             value['error'],
             'Close',
-            Icon(
-              Icons.error_rounded,
-              color: Color.fromARGB(255, 213, 10, 27),
-              size: 30,
-            ),
+            'Try again',
+            ()=>{}
           );
+          }
         }
       });
     } catch (e) {

@@ -8,13 +8,36 @@ import '../../constants/app_font.dart';
 import '../../constants/app_routes.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+    
+
+  const Profile({super.key,});
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+
+  String name = "";
+  String email = "";
+  String phoneNo = "";
+  getUserData()async{
+     name = await showName();
+     email = await showEmail();
+     phoneNo = await showPhone();
+    setState(() {
+      name;
+      email;
+      phoneNo;
+    });
+ 
+   }
+
+@override
+  void initState() {
+       getUserData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
@@ -51,19 +74,19 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
-              Text('Adedapo Samad', style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
+              Text(name, style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
               Text(
-                'adedapo.samad@gmail.com',
+                email,
                 style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
               Text(
-                '+234-1234-5678',
+                phoneNo,
                 style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w400),
               )
             ]),

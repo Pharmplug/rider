@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_routes.dart';
 import '../provider/auth_provider.dart';
@@ -9,6 +10,7 @@ class ProfileUtil {
     AppUtils.showLoader(context);
     final result = await Provider.of<AuthProvider>(context, listen: false).fetchProfile(id, accessToken);
     Navigator.of(context).pop();
+    await saveName(['name']);
 
     if (result['statusCode'] == 200) {
       return result['data'];

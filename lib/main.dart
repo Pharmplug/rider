@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pharmplug_rider/views/navbar/nav.dart';
+import 'package:pharmplug_rider/views/onboarding/onboading.dart';
 import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
 import 'package:pharmplug_rider/views/profile/earnings.dart';
 import 'package:pharmplug_rider/views/profile/profile.dart';
@@ -52,7 +53,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
-
             home: FutureBuilder(
               builder: (ctx, snapshot) {
                 // Checking if future is resolved or not

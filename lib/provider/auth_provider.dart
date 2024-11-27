@@ -40,37 +40,35 @@ class AuthProvider extends ChangeNotifier {
     return data;
   }
 
- Future<Map<String, dynamic>> registerOTP(String otp) async {
-  dynamic data;
+  Future<Map<String, dynamic>> registerOTP(String otp) async {
+    dynamic data;
 
-  try {
-    // Ensure accessToken is available
-    if (accessToken == null) {
-      throw Exception("Access token is required");
+    try {
+      // Ensure accessToken is available
+      if (accessToken == null) {
+        throw Exception("Access token is required");
+      }
+      var id = await showUserId();
+      // Call OTPVerification API
+      var responseData = await AuthAPI.OTPVerification(
+        id: id,
+        otp: otp,
+      );
+
+      if (responseData['statusCode'] == 200) {
+        data = responseData; // Success response
+        print("Success: $data");
+      } else {
+        data = responseData; // Error response
+        print("Error: $data");
+      }
+    } catch (e) {
+      data = {'error': e.toString()};
+      print("Exception: $data");
     }
-    var id = await showUserId();
-    // Call OTPVerification API
-    var responseData = await AuthAPI.OTPVerification(
-      id:id,
-      otp:otp,
 
-    );
-
-    if (responseData['statusCode'] == 200) {
-      data = responseData; // Success response
-      print("Success: $data");
-    } else {
-      data = responseData; // Error response
-      print("Error: $data");
-    }
-  } catch (e) {
-    data = {'error': e.toString()};
-    print("Exception: $data");
+    return data;
   }
-
-  return data;
-}
-
 
   Future<Map<String, dynamic>> register(
       firstName, lastName, password, confirmPassword, email, phone) async {
@@ -121,7 +119,7 @@ class AuthProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> changePassword(password) async {
     dynamic data;
     notifyListeners();
-   
+
     var id = await showUserId();
     print(id);
     print(password);
@@ -140,27 +138,28 @@ class AuthProvider extends ChangeNotifier {
     return data;
   }
 
+ 
+
   Future<Map<String, dynamic>> fetchProfile(id, accessToken) async {
-  dynamic data;
+    dynamic data;
 
-  try {
-    // Call the API to fetch profile
-    var responseData = await AuthAPI.getProfile(id, accessToken);
+    try {
+      // Call the API to fetch profile
+      var responseData = await AuthAPI.getProfile(id, accessToken);
 
-    print(responseData);
-    if (responseData['statusCode'] == 200) {
-      // Profile fetched successfully
-      data = responseData;
-    } else {
-      // Handle error responses
-      data = responseData;
+      print(responseData);
+      if (responseData['statusCode'] == 200) {
+        // Profile fetched successfully
+        data = responseData;
+      } else {
+        // Handle error responses
+        data = responseData;
+      }
+    } catch (e) {
+      // Catch and handle any errors
+      data = {'error': e.toString()};
     }
-  } catch (e) {
-    // Catch and handle any errors
-    data = {'error': e.toString()};
+
+    return data;
   }
-
-  return data;
-}
-
 }
