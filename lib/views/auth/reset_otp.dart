@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../../components/buttons.dart';
 import '../../constants/app_colors.dart';
@@ -16,8 +19,32 @@ class ResetOTP extends StatefulWidget {
 }
 
 class _ResetOTPState extends State<ResetOTP> {
-  var time = "03:07";
+   var email = '';
+  int _resend = 20;
+  late Timer _timer;
+  // int _resendCount = 0;
   var otp = "";
+  final String correctOtp = "";
+
+  @override
+  void initState() {
+    super.initState();
+    resendCodeCountdown();
+
+  }
+
+  void resendCodeCountdown() async {
+    email = await showEmail();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_resend == 0) {
+        _timer.cancel();
+      } else {
+        _resend--;
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
@@ -62,7 +89,7 @@ class _ResetOTPState extends State<ResetOTP> {
                         style: AppFonts.text14InterHint),
                     TextSpan(text: "(", style: AppFonts.text14InterHint),
                     TextSpan(
-                        text: "ayoseunsolomon@gmail.com",
+                        text: email,
                         style: AppFonts.text14InterGreen),
                     TextSpan(text: ")", style: AppFonts.text14InterHint),
                   ])),
@@ -79,19 +106,34 @@ class _ResetOTPState extends State<ResetOTP> {
                             style: AppFonts.text14InterHint.copyWith(),
                           ),
                           Text(
-                            time,
+                            "$_resend",
                             style: AppFonts.text14InterGreen
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                      Text(
-                        "Resend",
-                        style: AppFonts.text14InterGreen.copyWith(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Pallete.secondaryColor),
-                      )
+                       _resend == 0
+                          ? GestureDetector(
+                              onTap: () {
+                                // Resend code action
+                                setState(() {
+                                  _resend = 20; // Reset the countdown
+                                });
+                                resendCodeCountdown();
+                              },
+                              child: Text(
+                                "Resend",
+                                style: AppFonts.text14InterGreen.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Pallete.secondaryColor,
+                                  color: _resend == 0
+                                      ? Pallete.secondaryColor
+                                      : Colors.grey,
+                                ),
+                              ),
+                            )
+                          : SizedBox.shrink()
                     ],
                   )
                 ],
@@ -100,7 +142,7 @@ class _ResetOTPState extends State<ResetOTP> {
                 height: _getSize.height * 0.1,
               ),
               OTPTextField(
-                  length: 5,
+                  length: 6,
                   width: MediaQuery.of(context).size.width,
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldWidth: 45,

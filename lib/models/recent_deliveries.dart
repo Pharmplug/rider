@@ -8,7 +8,7 @@ class Order {
 
   Order({
     required this.id,
-       required this.img,
+    required this.img,
     required this.name,
     required this.amount,
     required this.completed,

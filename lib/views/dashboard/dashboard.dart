@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:pharmplug_rider/models/recent_deliveries.dart';
+import 'package:pharmplug_rider/network/rider.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_deliveries.dart';
 import 'package:pharmplug_rider/views/dashboard/dashboard_tracker.dart';
+import 'package:provider/provider.dart';
 import '../../constants/resources.dart';
 import 'dashboard_header.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
@@ -18,29 +21,55 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   bool amountVisible = false;
   var amount = "******";
-  bool isSwitched = false;
+   bool isSwitched=false;
   var deliveries = "4";
   var orderId = "FI56H17";
   var addressFrom = "11, Mike Adenuga, Ikate, Lekki, Lagos.";
   var addressTo = "20, Ligali Ayorinde, Ikoyi, Lagos.";
+  var balance = "";
   var tine = "10:12AM";
+  String name = "";
+
   void toggleAmountVisibility() {
     setState(() {
       amountVisible = !amountVisible;
-      amount = amountVisible ? "#6,000,000" : "******";
+      amount = amountVisible ? balance : "******";
     });
   }
 
-  void toggleSwitch(bool value) {
+  toggleSwitch(bool value) async {
+    var res = await RiderAPI.updateWork(value);
+    if (res["statusCode"] == 200) {
+      await saveIsWorking(res['data']['rider']['isWorking']);
+      setState(() {
+        isSwitched = res['data']['rider']['isWorking'];
+      });
+    } else {
+      isSwitched;
+    }
+  }
+
+  getUserData() async {
+    name = await showName();
+    balance = await showBalance();
+    isSwitched = await showIsWorking();
     setState(() {
-      isSwitched = value;
+      name;
+      balance;
+      isSwitched;
     });
   }
 
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Pallete.backgroundColor,
       body: SafeArea(
@@ -48,6 +77,7 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             children: [
               DashboardHeader(
+                name: name,
                 amountVisible: amountVisible,
                 amount: amount,
                 isSwitched: isSwitched,

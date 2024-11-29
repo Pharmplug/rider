@@ -6,6 +6,10 @@ import 'package:pharmplug_rider/constants/app_font.dart';
 import '../../components/buttons.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import '../../utils/auth_utils/login_util.dart';
+import '../../utils/validator.dart';
+import '../dashboard/dashboard.dart';
+import '../navbar/nav.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,6 +22,47 @@ class _LoginState extends State<Login> {
   bool passwordVisible = false;
   bool remember = false;
   final _loginFormKey = GlobalKey<FormState>();
+  bool obsecure = true;
+  var name = "Solomon";
+  bool enabled = false;
+  bool isSpecialAdded = false;
+  bool isNumAdded = false;
+  bool isAboveEight = false;
+
+  void _checkPasswordStrength(String value) {
+    dynamic password = value.trim();
+    setState(() {
+      if (Validators.numReg.hasMatch(password)) {
+        // Password has number
+        isNumAdded = true;
+      } else {
+        isNumAdded = false;
+      }
+      if (Validators.specialReg.hasMatch(password)) {
+        // Password has a special character
+        isSpecialAdded = true;
+      } else {
+        isSpecialAdded = false;
+      }
+
+      if (password.length > 8) {
+        // Password is more than 8
+        isAboveEight = true;
+      } else {
+        isAboveEight = false;
+      }
+      if (isSpecialAdded && isNumAdded && isAboveEight) {
+        enabled = true;
+      } else {
+        enabled = false;
+      }
+    });
+  }
+
+  final Map<String, dynamic> _loginData = {
+    'email': '',
+    'password': '',
+  };
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
@@ -69,9 +114,10 @@ class _LoginState extends State<Login> {
                   children: [
                     CustomInput(
                         hint: "Email Address",
+                        validator: Validators.emailValidator,
                         label: "Enter Email Address",
-                        onChanged: (c) => {},
-                        onSaved: (s) => {}),
+                
+                        onSaved: (s) => {_loginData['email'] = s}),
                     SizedBox(
                       height: _getSize.height * 0.035,
                     ),
@@ -79,7 +125,12 @@ class _LoginState extends State<Login> {
                         hint: "Password",
                         label: "Enter Password",
                         obsecure: !passwordVisible,
-                        onChanged: (c) => {},
+                        onChanged: (c) {
+                          _checkPasswordStrength(c!);
+                          if (enabled) {
+                            _loginData['password'] = c;
+                          }
+                        },
                         suffixIcon: IconButton(
                             onPressed: () {
                               //call set state so that the UI is rebuilt on click
@@ -95,7 +146,9 @@ class _LoginState extends State<Login> {
                                   : Icons.visibility_off,
                               color: Pallete.disabledColor, size: 18,
                             )),
-                        onSaved: (s) => {}),
+                        onSaved: (s) => {
+                              _loginData['password'] = s
+                        }),
                     SizedBox(
                       height: _getSize.height * 0.02,
                     ),
@@ -143,8 +196,11 @@ class _LoginState extends State<Login> {
                 child: ButtonWithFunction(
                     text: "Sign in",
                     onPressed: () => {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.dashboardScreen, (route) => false)
+                     if(_loginFormKey.currentState?.validate() ?? false){
+                          _loginFormKey.currentState?.save(),
+                          
+                          LoginUtil.login(_loginFormKey, context, _loginData)
+                     }
                         }),
               ),
               SizedBox(

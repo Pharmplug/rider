@@ -3,6 +3,7 @@ import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:provider/provider.dart';
 
 class DashboardHeader extends StatelessWidget {
   final bool amountVisible;
@@ -10,6 +11,7 @@ class DashboardHeader extends StatelessWidget {
   final bool isSwitched;
   final VoidCallback toggleAmountVisibility;
   final ValueChanged<bool> toggleSwitch;
+  final String name;
 
   const DashboardHeader({
     Key? key,
@@ -18,6 +20,7 @@ class DashboardHeader extends StatelessWidget {
     required this.isSwitched,
     required this.toggleAmountVisibility,
     required this.toggleSwitch,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -47,7 +50,7 @@ class DashboardHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Hello Melody,", style: AppFonts.text18Inter),
+                Text("Hello $name,", style: AppFonts.text18Inter),
                 Container(
                   decoration: const BoxDecoration(
                     color: Pallete.primaryColor,
@@ -84,7 +87,7 @@ class DashboardHeader extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            amount,
+                              '₦$amount',
                             overflow: TextOverflow.ellipsis,
                             style: AppFonts.text16Inter.copyWith(
                               fontWeight: FontWeight.w600,
@@ -125,7 +128,7 @@ class DashboardHeader extends StatelessWidget {
                                       : Pallete.textRed,
                                 ),
                                 Text(
-                                  "Online",
+                                 isSwitched? "Online":"Offline",
                                   style: AppFonts.text12Barlow.copyWith(
                                     color: isSwitched
                                         ? Pallete.secondaryColor2
