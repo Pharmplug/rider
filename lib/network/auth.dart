@@ -1,15 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../constants/resources.dart';
 
 class AuthAPI {
 
-  static Future OTPVerfication(id, otp) async {
+  static Future<Map<String, dynamic>> OTPVerification({
+  required String id,
+  required String otp,
+}) async {
+  var accessToken =await showAccessToken();
     var response = await http.put(
-      Uri.parse('$baseURL/users/verify-otp'),
+      Uri.parse('$baseURL/api/riders/verify-otp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $accessToken',
       },
       body: jsonEncode(<String, String>{"id": id, "otpData": otp}),
     );
@@ -31,7 +37,7 @@ class AuthAPI {
     };
     print(payload);
     var response = await http.post(
-      Uri.parse('$baseURL/users/register'),
+      Uri.parse('$baseURL/api/riders/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -46,11 +52,11 @@ class AuthAPI {
     print(data);
     print(password);
     var response = await http.post(
-      Uri.parse('$baseURL/users/login'),
+      Uri.parse('$baseURL/api/riders/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{"data": data.toString(), "password": password}),
+      body: jsonEncode(<String, String>{"emailOrPhone": data.toString(), "password": password}),
     );
 
     var parsedResponse = jsonDecode(response.body);
@@ -59,8 +65,9 @@ class AuthAPI {
   }
 
   static Future forgotPassword(email) async {
+    
     var response = await http.post(
-        Uri.parse('$baseURL/users/forgot-password'),
+        Uri.parse('$baseURL/api/riders/forgot-password'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -73,10 +80,12 @@ class AuthAPI {
   }
 
   static Future resetPassword(id, password) async {
+    var accessToken =await showAccessToken();
     var response = await http.patch(
-      Uri.parse('$baseURL/users/password-reset'),
+      Uri.parse('$baseURL/api/riders/password-reset'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $accessToken',
       },
       body: jsonEncode(<String, String>{"id": id, "password": password}),
     );
@@ -85,4 +94,55 @@ class AuthAPI {
 
     return parsedResponse;
   }
+
+
+
+
+  // Fetch User Profile
+  static Future getProfile(id, accessToken) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseURL/riders/$id/profile'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var parsedResponse = jsonDecode(response.body);
+        return parsedResponse;
+      } else {
+        throw Exception('Failed to fetch profile: ${response.body}');
+      }
+    } catch (e) {
+      print('Error fetching profile: $e');
+      rethrow;
+    }
+  }
+
+  // Update User Profile
+  // static Future updateProfile(String userId, Map<String, String> updatedData, String accessToken) async {
+  //   try {
+  //     final response = await http.put(
+  //       Uri.parse('$baseURL/riders/$userId/profile'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //         'Authorization': 'Bearer $accessToken', 
+  //       },
+  //       body: jsonEncode(updatedData),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       var parsedResponse = jsonDecode(response.body);
+  //       return parsedResponse;
+  //     } else {
+  //       throw Exception('Failed to update profile: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print('Error updating profile: $e');
+  //     rethrow;
+  //   }
+  // }
+
 }

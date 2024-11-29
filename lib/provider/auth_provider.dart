@@ -8,6 +8,7 @@ import '../network/auth.dart';
 import '../utils/local_storage.dart';
 
 class AuthProvider extends ChangeNotifier {
+  String? accessToken;
   // final Map<String, dynamic> serverErrorResult = {
   //   'status': false,
   //   'message': 'Sorry, something went wrong. Contact the Admin',
@@ -25,11 +26,12 @@ class AuthProvider extends ChangeNotifier {
       data = responseData;
 
       if (responseData['statusCode'] == 200) {
+        data = responseData;
         notifyListeners();
         print(data);
         data;
       } else {
-        data;
+        data = responseData;
       }
     } catch (e) {
       notifyListeners();
@@ -38,25 +40,33 @@ class AuthProvider extends ChangeNotifier {
     return data;
   }
 
-  Future<Map<String, dynamic>> registerOTP(id,otp) async {
+  Future<Map<String, dynamic>> registerOTP(String otp) async {
     dynamic data;
 
-    notifyListeners();
-
     try {
-      var responseData  = await AuthAPI.OTPVerfication(id,otp);
-      
+      // Ensure accessToken is available
+      if (accessToken == null) {
+        throw Exception("Access token is required");
+      }
+      var id = await showUserId();
+      // Call OTPVerification API
+      var responseData = await AuthAPI.OTPVerification(
+        id: id,
+        otp: otp,
+      );
+
       if (responseData['statusCode'] == 200) {
-        notifyListeners();
-        data = responseData;
-        print(data);
+        data = responseData; // Success response
+        print("Success: $data");
       } else {
-        data = responseData;
+        data = responseData; // Error response
+        print("Error: $data");
       }
     } catch (e) {
-      notifyListeners();
-      data = {'error': e};
+      data = {'error': e.toString()};
+      print("Exception: $data");
     }
+
     return data;
   }
 
@@ -74,12 +84,15 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
 
         data = responseData;
+        print(responseData);
       } else {
         data = responseData;
+        print(responseData);
       }
     } catch (e) {
       notifyListeners();
       data = {'error': e};
+      print(data);
     }
     return data;
   }
@@ -106,6 +119,7 @@ class AuthProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> changePassword(password) async {
     dynamic data;
     notifyListeners();
+
     var id = await showUserId();
     print(id);
     print(password);
@@ -121,6 +135,31 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       data = {'error': e};
     }
+    return data;
+  }
+
+ 
+
+  Future<Map<String, dynamic>> fetchProfile(id, accessToken) async {
+    dynamic data;
+
+    try {
+      // Call the API to fetch profile
+      var responseData = await AuthAPI.getProfile(id, accessToken);
+
+      print(responseData);
+      if (responseData['statusCode'] == 200) {
+        // Profile fetched successfully
+        data = responseData;
+      } else {
+        // Handle error responses
+        data = responseData;
+      }
+    } catch (e) {
+      // Catch and handle any errors
+      data = {'error': e.toString()};
+    }
+
     return data;
   }
 }

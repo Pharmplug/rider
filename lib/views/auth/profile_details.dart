@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
+import 'package:pharmplug_rider/utils/auth_utils/user_details_util.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 
 import '../../components/buttons.dart';
 import '../../components/input_field.dart';
@@ -19,10 +21,19 @@ class ProfileDetails extends StatefulWidget {
 class _ProfileDetailsState extends State<ProfileDetails> {
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
-  final _registerFormKey = GlobalKey<FormState>();
+  final _userFormKey = GlobalKey<FormState>();
+  Map<dynamic, dynamic> _userData = {
+    'firstName': '',
+    'lastName': '',
+    'phone': '',
+  };
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
+    final dataFromRoute = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    _userData = dataFromRoute;
+    print(_userData);
     return Scaffold(
       backgroundColor: Pallete.backgroundColor,
       body: SafeArea(
@@ -80,21 +91,21 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 height: _getSize.height * 0.025,
               ),
               Form(
-                key: _registerFormKey,
+                key: _userFormKey,
                 child: Column(children: [
                   CustomInput(
                       hint: "First Name",
                       label: "Enter First Name",
-                      onChanged: (c) => {},
-                      onSaved: (s) => {}),
+                      onChanged: (c) => {_userData['firstName'] = c},
+                      onSaved: (s) => {_userData['firstName'] = s}),
                   SizedBox(
                     height: _getSize.height * 0.035,
                   ),
                   CustomInput(
                       hint: "Last Name",
                       label: "Enter Last Name",
-                      onChanged: (c) => {},
-                      onSaved: (s) => {}),
+                      onChanged: (c) => {_userData['lastName'] = c},
+                      onSaved: (s) => {_userData['lastName'] = s}),
                   SizedBox(
                     height: _getSize.height * 0.035,
                   ),
@@ -117,8 +128,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   CustomInput(
                       hint: "Phone",
                       label: "Enter Phone Number",
-                      onChanged: (c) => {},
-                      onSaved: (s) => {}),
+                      onChanged: (c) => {_userData['phone'] = c},
+                      onSaved: (s) => {_userData['phone'] = s}),
                   SizedBox(
                     height: _getSize.height * 0.035,
                   ),
@@ -139,17 +150,10 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ButtonWithFunction(
                     text: "Confirm",
-                    onPressed: () => {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NavBar(
-                                      initialScreen: const Dashboard(),
-                                      initialTab: 0,
-                                    )),
-                            (route) => false,
-                          )
-                        }),
+                    onPressed: () {
+                      UserDetailsUtil.userDetails(
+                          _userFormKey, context, _userData);
+                    }),
               ),
               SizedBox(
                 height: _getSize.height * 0.04,

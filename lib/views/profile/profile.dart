@@ -3,17 +3,47 @@
 import 'package:flutter/material.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
+import 'package:pharmplug_rider/utils/local_storage.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_routes.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+    
+
+  const Profile({super.key,});
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+
+  String name = "";
+  String email = "";
+  String phone = "";
+  String balance = "";
+    String photo = "";
+  getUserData()async{
+     name = await showName();
+     email = await showEmail();
+     phone = await showPhone();
+      photo= await showPhoto();
+     //balance = await showBalance();
+    setState(() {
+      name;
+      email;
+      phone;
+      photo;
+      balance;
+    });
+ 
+   }
+
+@override
+  void initState() {
+       getUserData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
@@ -43,26 +73,26 @@ class _ProfileState extends State<Profile> {
               ],
             ),
             Column(children: [
-              Image.asset(
-                AppImages.profilePic,
-                scale: 2,
+              Image.network(
+                photo,
+                width: _getSize.width*0.25,
               ),
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
-              Text('Adedapo Samad', style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
+              Text(name, style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600)),
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
               Text(
-                'adedapo.samad@gmail.com',
+                email,
                 style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: _getSize.height * 0.01,
               ),
               Text(
-                '+234-1234-5678',
+                phone,
                 style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w400),
               )
             ]),
@@ -195,7 +225,7 @@ class _ProfileState extends State<Profile> {
                               height: _getSize.height * 0.02,
                             ),
                             Text(
-                              '₦600,700‎.00',
+                              '₦$balance',
                               style: AppFonts.text15OpenSans.copyWith(fontWeight: FontWeight.w700, color: Pallete.primaryColor),
                             )
                           ],
@@ -209,26 +239,32 @@ class _ProfileState extends State<Profile> {
             SizedBox(
               height: _getSize.height * 0.005,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              width: _getSize.width * 0.78,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                  color: Color(0XFFEBF9FB),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(AppImages.rep, scale: 4,
-                  width: _getSize.width * 0.08,),
-                  Expanded(child: Text('Support', style: AppFonts.text14Barlow.copyWith(color: Pallete.primaryColor))),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Image.asset(
-                      AppImages.caretRight,
-                      scale: 2,
-                      ),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                clearData();
+                Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.loginScreen, (route) => false);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                width: _getSize.width * 0.78,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                    color: Color(0XFFEBF9FB),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.rep, scale: 4,
+                    width: _getSize.width * 0.08,),
+                    Expanded(child: Text('Support', style: AppFonts.text14Barlow.copyWith(color: Pallete.primaryColor))),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Image.asset(
+                        AppImages.caretRight,
+                        scale: 2,
+                        ),
+                    )
+                  ],
+                ),
               ),
             )
           ],

@@ -114,8 +114,9 @@ class _LoginState extends State<Login> {
                   children: [
                     CustomInput(
                         hint: "Email Address",
+                        validator: Validators.emailValidator,
                         label: "Enter Email Address",
-                        onChanged: (c) => {Validators.emailValidator(c)},
+                
                         onSaved: (s) => {_loginData['email'] = s}),
                     SizedBox(
                       height: _getSize.height * 0.035,
@@ -145,7 +146,9 @@ class _LoginState extends State<Login> {
                                   : Icons.visibility_off,
                               color: Pallete.disabledColor, size: 18,
                             )),
-                        onSaved: (s) => {}),
+                        onSaved: (s) => {
+                              _loginData['password'] = s
+                        }),
                     SizedBox(
                       height: _getSize.height * 0.02,
                     ),
@@ -193,8 +196,11 @@ class _LoginState extends State<Login> {
                 child: ButtonWithFunction(
                     text: "Sign in",
                     onPressed: () => {
+                     if(_loginFormKey.currentState?.validate() ?? false){
+                          _loginFormKey.currentState?.save(),
+                          
                           LoginUtil.login(_loginFormKey, context, _loginData)
-                       
+                     }
                         }),
               ),
               SizedBox(

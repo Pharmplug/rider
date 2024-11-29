@@ -6,6 +6,8 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_font.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_routes.dart';
+import '../../utils/auth_utils/forgot_password_util.dart';
+import '../../utils/validator.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -16,6 +18,12 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final _forgotPasswordFormKey = GlobalKey<FormState>();
+  bool enabled = false;
+
+  final Map<String, dynamic> _forgotPasswordData = {
+    'email': '',
+  };
+
   @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
@@ -66,10 +74,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   children: [
                     CustomInput(
+                        validator: Validators.emailValidator,
                         hint: "Email Address",
                         label: "Enter Email Address",
                         onChanged: (c) => {},
-                        onSaved: (s) => {}),
+                        onSaved: (s) => {
+                              _forgotPasswordData['email'] =
+                                  s!.trim().split(' ').join('')
+                            }),
                     SizedBox(
                       height: _getSize.height * 0.035,
                     ),
@@ -84,9 +96,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: ButtonWithFunction(
                     text: "Reset Password",
                     onPressed: () => {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.resetotpScreen, (route) => false)
-                        }),
+                      if(_forgotPasswordFormKey.currentState?.validate() ?? false) {
+                        _forgotPasswordFormKey.currentState?.save(),// Save form values
+                        ForgotPasswordUtil.forgotPassword(_forgotPasswordFormKey, context, _forgotPasswordData)
+                      }
+                    })
               ),
             ],
           ),
