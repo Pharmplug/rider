@@ -32,7 +32,7 @@ class ButtonWithFunction extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
           backgroundColor: disabled != null && disabled! ? Colors.grey[400] : Pallete.primaryColor,
           shadowColor: const Color.fromARGB(56, 148, 148, 148),
           elevation: 5,

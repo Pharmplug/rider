@@ -20,7 +20,7 @@ class DashboardHeader extends StatelessWidget {
     required this.isSwitched,
     required this.toggleAmountVisibility,
     required this.toggleSwitch,
-        required this.name,
+    required this.name,
   }) : super(key: key);
 
   @override

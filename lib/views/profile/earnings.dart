@@ -37,7 +37,7 @@ class OrderList{
   });
 }
 
-final List<OrderList> items = [
+final List<OrderList> itemss = [
   OrderList(
     name: "Julie Harrison Pharmacy Store",
     price: "₦20,700‎.00",
@@ -242,7 +242,7 @@ class _EarningsState extends State<Earnings> {
           height: _getSize.height * 0.7,
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            itemCount: items.length,
+            itemCount: itemss.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -272,7 +272,7 @@ class _EarningsState extends State<Earnings> {
         color: Pallete.primaryColor,
       ),
       child: Image.asset(
-        items[index].image!,
+        itemss[index].image!,
         scale: 4,
       ),
     );
@@ -283,7 +283,7 @@ class _EarningsState extends State<Earnings> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          items[index].name!,
+          itemss[index].name!,
           style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w600),
         ),
       ],
@@ -291,7 +291,7 @@ class _EarningsState extends State<Earnings> {
   }
 
   Widget _buildPrice(int index) {
-    return Text(items[index].price!,
+    return Text(itemss[index].price!,
         style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w500));
   }
 
@@ -300,7 +300,7 @@ class _EarningsState extends State<Earnings> {
     return Row(
       children: [
         Image.asset(
-          items[index].caretImage!,
+          itemss[index].caretImage!,
           scale: 1,
         ),
         SizedBox(
@@ -318,7 +318,7 @@ class _EarningsState extends State<Earnings> {
     return Row(
       children: [
         Image.asset(
-          items[index].boxImage!,
+          itemss[index].boxImage!,
           scale: 2,
         ),
         SizedBox(
@@ -333,7 +333,7 @@ class _EarningsState extends State<Earnings> {
   }
 
   Widget _buildTime(int index) {
-    return Text(items[index].time!,
+    return Text(itemss[index].time!,
         style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w500));
   }
   Widget _buildOrderRow(int index, Size _getSize) {

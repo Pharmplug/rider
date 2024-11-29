@@ -5,6 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pharmplug_rider/views/navbar/nav.dart';
 import 'package:pharmplug_rider/views/onboarding/onboading.dart';
 import 'package:pharmplug_rider/views/onboarding/welcome_screen.dart';
+import 'package:pharmplug_rider/views/order/oder_details/order_accepted.dart';
+import 'package:pharmplug_rider/views/order/oder_details/order_atDropOff.dart';
+import 'package:pharmplug_rider/views/order/oder_details/order_toPickup.dart';
+import 'package:pharmplug_rider/views/order/order.dart';
+import 'package:pharmplug_rider/views/order/oder_details/order_details.dart';
 import 'package:pharmplug_rider/views/profile/earnings.dart';
 import 'package:pharmplug_rider/views/profile/profile.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +19,8 @@ import 'utils/local_storage.dart';
 import 'views/auth/register.dart';
 import 'views/auth/register_otp.dart';
 import 'views/dashboard/dashboard.dart';
+import '../../constants/resources.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,35 +60,36 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
-            home: FutureBuilder(
-              builder: (ctx, snapshot) {
-                // Checking if future is resolved or not
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // check if snapshot has data and then convert data to int
-                  if (snapshot.hasData) {
-                    final data = snapshot.data as int;
+            home:OrderScreen()
+            // home: FutureBuilder(
+            //   builder: (ctx, snapshot) {
+            //     // Checking if future is resolved or not
+            //     if (snapshot.connectionState == ConnectionState.done) {
+            //       // check if snapshot has data and then convert data to int
+            //       if (snapshot.hasData) {
+            //         final data = snapshot.data as int;
 
-                    switch (data) {
-                      case 0:
-                        return const WelcomeScreen();
-                      case 1:
-                        return const Register();
-                      case 2:
-                        return const RegisterOTP();
-                      case 3:
-                        return NavBar(
-                            initialScreen: const Dashboard(), initialTab: 0);
-                    }
-                    // if we got our data
-                  }
-                }
-                // Displaying empty to indicate waiting state
-                return Container(
-                  color: Colors.white,
-                );
-              },
-              future: alreadyAUser,
-            ),
+            //         switch (data) {
+            //           case 0:
+            //             return const WelcomeScreen();
+            //           case 1:
+            //             return const Register();
+            //           case 2:
+            //             return const RegisterOTP();
+            //           case 3:
+            //             return NavBar(
+            //                 initialScreen: const Dashboard(), initialTab: 0);
+            //         }
+            //         // if we got our data
+            //       }
+            //     }
+            //     // Displaying empty to indicate waiting state
+            //     return Container(
+            //       color: Colors.white,
+            //     );
+            //   },
+            //   future: alreadyAUser,
+            // ),
            
           ),
         );

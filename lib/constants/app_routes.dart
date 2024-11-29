@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmplug_rider/models/recent_deliveries.dart';
 import 'package:pharmplug_rider/views/auth/profile_details.dart';
 import 'package:pharmplug_rider/views/onboarding/onboading.dart';
 import 'package:pharmplug_rider/views/onboarding/onboarding2.dart';
@@ -12,6 +13,7 @@ import '../views/auth/register_otp.dart';
 import '../views/auth/reset_otp.dart';
 import '../views/auth/reset_password.dart';
 import '../views/dashboard/dashboard.dart';
+import '../views/order/order.dart';
 
 class AppRoutes {
   static const dashboardScreen = '/dashboardScreen';
@@ -27,6 +29,8 @@ class AppRoutes {
   static const onboarding = '/onboarding';
   static const onboarding2 = '/onboarding2';
   static const onboarding3 = '/onboarding3';
+  static const order = '/order';
+
 
 
   static Map<String, WidgetBuilder> routes() {
@@ -43,6 +47,7 @@ class AppRoutes {
       AppRoutes.onboarding: ((context) => const Onboarding()),
       AppRoutes.onboarding2: ((context) => const Onboarding2()),
       AppRoutes.onboarding3: ((context) => const Onboarding3()),
+      AppRoutes.order: ((context) => const OrderScreen()),
 
     };
   }
