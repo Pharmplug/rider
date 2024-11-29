@@ -106,7 +106,7 @@ class _NavBarState extends State<NavBar> {
                       minWidth: _getSize.width * 0.10,
                       onPressed: () {
                         setState(() {
-                          currentScreen = const Order();
+                          currentScreen = const OrderScreen();
                           currentTab = 1;
                         });
                       },

@@ -13,7 +13,6 @@ import '../../constants/app_routes.dart';
 import 'package:provider/provider.dart';
 import '../../provider/auth_provider.dart';
 
-
 class RegisterOTP extends StatefulWidget {
   const RegisterOTP({Key? key}) : super(key: key);
 
@@ -33,7 +32,6 @@ class _RegisterOTPState extends State<RegisterOTP> {
   void initState() {
     super.initState();
     resendCodeCountdown();
-
   }
 
   void resendCodeCountdown() async {
@@ -50,7 +48,6 @@ class _RegisterOTPState extends State<RegisterOTP> {
 
   @override
   Widget build(BuildContext context) {
-
     final _getSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Pallete.backgroundColor,
@@ -162,15 +159,16 @@ class _RegisterOTPState extends State<RegisterOTP> {
               ),
               ButtonWithFunction(
                   text: "Verify Email Address",
-                    onPressed: () {
+                  onPressed: () {
                     if (otp.length == 6) {
                       RegisterOTPUtil.registerOTP(context, otp);
-                     
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please enter a 6-digit OTP.")),
+                        const SnackBar(
+                            content: Text("Please enter a 6-digit OTP.")),
                       );
-                    }}                  ),
+                    }
+                  }),
               SizedBox(
                 height: _getSize.height * 0.03,
               ),
