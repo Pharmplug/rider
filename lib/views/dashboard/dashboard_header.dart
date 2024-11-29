@@ -87,7 +87,7 @@ class DashboardHeader extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            amount,
+                              '₦$amount',
                             overflow: TextOverflow.ellipsis,
                             style: AppFonts.text16Inter.copyWith(
                               fontWeight: FontWeight.w600,

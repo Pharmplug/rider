@@ -12,7 +12,7 @@ class AuthAPI {
 }) async {
   var accessToken =await showAccessToken();
     var response = await http.put(
-      Uri.parse('$baseURL/api/users/verify-otp'),
+      Uri.parse('$baseURL/api/riders/verify-otp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $accessToken',
@@ -37,7 +37,7 @@ class AuthAPI {
     };
     print(payload);
     var response = await http.post(
-      Uri.parse('$baseURL/api/users/register'),
+      Uri.parse('$baseURL/api/riders/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -52,11 +52,11 @@ class AuthAPI {
     print(data);
     print(password);
     var response = await http.post(
-      Uri.parse('$baseURL/api/users/login'),
+      Uri.parse('$baseURL/api/riders/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{"data": data.toString(), "password": password}),
+      body: jsonEncode(<String, String>{"emailOrPhone": data.toString(), "password": password}),
     );
 
     var parsedResponse = jsonDecode(response.body);
@@ -67,7 +67,7 @@ class AuthAPI {
   static Future forgotPassword(email) async {
     
     var response = await http.post(
-        Uri.parse('$baseURL/api/users/forgot-password'),
+        Uri.parse('$baseURL/api/riders/forgot-password'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -82,7 +82,7 @@ class AuthAPI {
   static Future resetPassword(id, password) async {
     var accessToken =await showAccessToken();
     var response = await http.patch(
-      Uri.parse('$baseURL/api/users/password-reset'),
+      Uri.parse('$baseURL/api/riders/password-reset'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $accessToken',
@@ -95,22 +95,14 @@ class AuthAPI {
     return parsedResponse;
   }
 
-  static Future fetchDashboardData() async {
-      var response = await http.get(Uri.parse('$baseURL/api/dashboard'),
-      
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      );
-      return response;
-  }
+
 
 
   // Fetch User Profile
   static Future getProfile(id, accessToken) async {
     try {
       final response = await http.get(
-        Uri.parse('$baseURL/users/$id/profile'),
+        Uri.parse('$baseURL/riders/$id/profile'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $accessToken',
@@ -133,7 +125,7 @@ class AuthAPI {
   // static Future updateProfile(String userId, Map<String, String> updatedData, String accessToken) async {
   //   try {
   //     final response = await http.put(
-  //       Uri.parse('$baseURL/users/$userId/profile'),
+  //       Uri.parse('$baseURL/riders/$userId/profile'),
   //       headers: <String, String>{
   //         'Content-Type': 'application/json; charset=UTF-8',
   //         'Authorization': 'Bearer $accessToken', 

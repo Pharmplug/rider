@@ -10,9 +10,9 @@ import '../app_utils.dart';
 import '../local_storage.dart';
 
 class LoginUtil {
-  static Future<void> login(GlobalKey<FormState> formkey,
-      BuildContext context, Map<String, dynamic> loginData) async {
-     print(loginData);
+  static Future<void> login(GlobalKey<FormState> formkey, BuildContext context,
+      Map<String, dynamic> loginData) async {
+    print(loginData);
     //var token2 = await showToken();
     //var id2 = await showId();
 
@@ -35,16 +35,18 @@ class LoginUtil {
         if (value['statusCode'] == 200) {
           print("yes ${value}");
           // formkey.currentState!.reset();
-          await saveUserId(value['data']['customercode'].toString());
-          await saveEmail(value['data']['email']);
-          await saveName(value['data']['name']);
-          await savePhone(value['data']['phone']);
-          await saveSurName(value['data']['surname']);
-          await saveRef(value['data']['refcode']);
-          await saveOnce(3);
-          await saveStatus(value['data']['status']);
+          await saveUserId(value['data']['rider']['id'].toString());
+          await saveEmail(value['data']['rider']['email']);
+          await saveName(value['data']['rider']['firstName']);
+          await savePhone(value['data']['rider']['phone']);
+          await saveSurName(value['data']['rider']['lastName']);
+          await saveCreatedAt(value['data']['rider']['createdAt']);
+          await saveStatus(value['data']['rider']['status']);
           await saveAccessToken(value['data']['token']);
-
+          await saveIsWorking(value['data']['rider']['isWorking']);
+          await saveBalance(value['data']['rider']['balance']?? "0");
+          await savePhoto(value['data']['rider']['photo']);
+           await saveOnce(3);
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

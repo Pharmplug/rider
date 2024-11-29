@@ -20,15 +20,21 @@ class _ProfileState extends State<Profile> {
 
   String name = "";
   String email = "";
-  String phoneNo = "";
+  String phone = "";
+  String balance = "";
+    String photo = "";
   getUserData()async{
      name = await showName();
      email = await showEmail();
-     phoneNo = await showPhone();
+     phone = await showPhone();
+      photo= await showPhoto();
+     //balance = await showBalance();
     setState(() {
       name;
       email;
-      phoneNo;
+      phone;
+      photo;
+      balance;
     });
  
    }
@@ -67,9 +73,9 @@ class _ProfileState extends State<Profile> {
               ],
             ),
             Column(children: [
-              Image.asset(
-                AppImages.profilePic,
-                scale: 2,
+              Image.network(
+                photo,
+                width: _getSize.width*0.25,
               ),
               SizedBox(
                 height: _getSize.height * 0.01,
@@ -86,7 +92,7 @@ class _ProfileState extends State<Profile> {
                 height: _getSize.height * 0.01,
               ),
               Text(
-                phoneNo,
+                phone,
                 style: AppFonts.text12Barlow.copyWith(fontWeight: FontWeight.w400),
               )
             ]),
@@ -219,7 +225,7 @@ class _ProfileState extends State<Profile> {
                               height: _getSize.height * 0.02,
                             ),
                             Text(
-                              '₦600,700‎.00',
+                              '₦$balance',
                               style: AppFonts.text15OpenSans.copyWith(fontWeight: FontWeight.w700, color: Pallete.primaryColor),
                             )
                           ],

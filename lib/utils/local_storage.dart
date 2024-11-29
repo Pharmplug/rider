@@ -19,9 +19,9 @@ savePhone(phone) async {
   sPrefs.setString("phrider-phone", phone);
 }
 
-saveRef(ref) async {
+saveCreatedAt(ref) async {
   sPrefs = await SharedPreferences.getInstance();
-  sPrefs.setString("phrider-ref", ref);
+  sPrefs.setString("phrider-createdAt", ref);
 }
 
 saveUserId(id) async {
@@ -38,44 +38,85 @@ saveStatus(status) async {
   sPrefs = await SharedPreferences.getInstance();
   sPrefs.setBool("phrider-status", status);
 }
+
 saveAccessToken(token) async {
   sPrefs = await SharedPreferences.getInstance();
-  sPrefs.setString("phrider-accessToken",token);
+  sPrefs.setString("phrider-accessToken", token);
 }
+
+saveIsWorking(isWorking) async {
+  sPrefs = await SharedPreferences.getInstance();
+  sPrefs.setBool("phrider-isWorking", isWorking);
+}
+
+savePhoto(p) async {
+  sPrefs = await SharedPreferences.getInstance();
+  sPrefs.setString("phrider-photo", p);
+}
+
+saveBalance(bal) async {
+  sPrefs = await SharedPreferences.getInstance();
+  sPrefs.setString("phrider-balance", "$bal");
+}
+
 saveOnce(once) async {
   sPrefs = await SharedPreferences.getInstance();
 
   sPrefs.setInt("phrider-Once", once);
-
 }
+
 showName() async {
   sPrefs = await SharedPreferences.getInstance();
-  String? temp=  sPrefs.getString("phrider-name");
-    return temp;
+  String? temp = sPrefs.getString("phrider-name");
+  return temp;
 }
 
 showSurName() async {
   sPrefs = await SharedPreferences.getInstance();
-  String? temp=  sPrefs.getString("phrider-surname");
-   return temp;
+  String? temp = sPrefs.getString("phrider-surname");
+  return temp;
 }
 
 showPhone() async {
   sPrefs = await SharedPreferences.getInstance();
-  String? temp=  sPrefs.getString("phrider-phone");
-   return temp;
+  String? temp = sPrefs.getString("phrider-phone");
+  return temp;
+}
+
+showPhoto() async {
+  sPrefs = await SharedPreferences.getInstance();
+  String? temp = sPrefs.getString("phrider-photo");
+  return temp;
+}
+
+showBalance() async {
+  sPrefs = await SharedPreferences.getInstance();
+  String? temp = sPrefs.getString("phrider-balance");
+  return temp;
+}
+
+showIsWorking() async {
+  sPrefs = await SharedPreferences.getInstance();
+  bool? temp = sPrefs.getBool("phrider-isWorking");
+  return temp;
 }
 
 showEmail() async {
   sPrefs = await SharedPreferences.getInstance();
- String? temp= sPrefs.getString("phrider-email");
-   return temp;
+  String? temp = sPrefs.getString("phrider-email");
+  return temp;
 }
 
 showAccessToken() async {
   sPrefs = await SharedPreferences.getInstance();
- String? temp= sPrefs.getString("phrider-accessToken");
-   return temp;
+  String? temp = sPrefs.getString("phrider-accessToken");
+  return temp;
+}
+
+showCreatedAt(ref) async {
+  sPrefs = await SharedPreferences.getInstance();
+  String? temp = sPrefs.getString("phrider-createdAt");
+  return temp;
 }
 
 showOnce() async {
@@ -99,8 +140,9 @@ showUserId() async {
 showStatus() async {
   sPrefs = await SharedPreferences.getInstance();
   bool? temp = sPrefs.getBool("phrider-status");
-    return temp;
+  return temp;
 }
+
 clearData() async {
   sPrefs = await SharedPreferences.getInstance();
   sPrefs.clear();

@@ -9,12 +9,8 @@ class DashboardData {
     required this.isOnline,
   });
 
-  factory DashboardData.fromJson(Map<String, dynamic> json){
-   return DashboardData(
-    name: json['name'], 
-    amount: json['amount'], 
-    isOnline: json['isOnline']
-    );
+  factory DashboardData.fromJson(Map<String, dynamic> json) {
+    return DashboardData(
+        name: json['name'], amount: json['amount'], isOnline: json['isOnline']);
+  }
 }
-}
-
