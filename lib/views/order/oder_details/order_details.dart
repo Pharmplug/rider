@@ -8,7 +8,6 @@ import 'package:pharmplug_rider/components/input_field.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:pharmplug_rider/constants/app_colors.dart';
-import 'package:pharmplug_rider/views/order/oder_details/order_delivered.dart';
 import 'package:pharmplug_rider/views/order/order.dart';
 import 'package:pharmplug_rider/views/order/order_tracker.dart';
 import '../../../constants/resources.dart';
@@ -37,9 +36,9 @@ class _OrderState extends State<OrderDetailsScreen> {
   late int index = 0;
   bool showTracker = false;
   final random = Random();
-  int currentStep = 0;
+  late int currentStep = 0;
   bool statusContainer = false;
-  bool showEarnings = false;
+  bool isConfirm = false;
 
   final List<String> buttonTexts = [
     "Accept This Order",
@@ -47,7 +46,7 @@ class _OrderState extends State<OrderDetailsScreen> {
     "At the Store",
     "Ready To Be On Transit",
     "Proceed For Delivery",
-    "Confirm Delivery"
+    "Confirm Delivery",
   ];
 
   final List<String> trackerTexts = [
@@ -62,43 +61,56 @@ class _OrderState extends State<OrderDetailsScreen> {
       "textColor": Pallete.hintText,
       "containerColor": Color(0XFFF2F4F7),
       "borderColor": Pallete.hintText,
-      "iconColor": Pallete.hintText
+      "icon": "assets/icons/moped_green.png",
+      "iconColor": Pallete.hintText,
+      "scale" : 1
     },
     {
       "text": "To Pickup",
-      "textColor": Pallete.hintText,
+      "textColor": Color(0XFFC4320A),
       "containerColor": Color(0XFFF2F4F7),
-      "borderColor": Pallete.hintText,
-      "iconColor": Pallete.hintText
+      "borderColor": Color(0XFFC4320A),
+      "icon": "assets/icons/moped_green.png",
+      "iconColor": Color(0XFFC4320A),
+      "scale" : 1
     },
     {
-      "text": "At the Store",
-      "textColor": Color(0XFFC4320A),
-      "containerColor": Color(0XFFF6ED),
-      "borderColor": Color(0XFFC4320A),
-      "iconColor": Color(0XFFC4320A)
+     "text": "At the Store",
+      "textColor": Color(0XFF026AA2),
+      "containerColor": Color(0XFFF0F9FF),
+      "borderColor": Color(0XFF026AA2),
+      "icon": "assets/icons/storefront.png",
+      "iconColor": Color(0XFF026AA2),
+      "scale" : 5
     },
     {
       "text": "On Transit",
-      "textColor": Color(0XFF026AA2),
+      "textColor": Color(0XFF175CD3),
       "containerColor": Color(0XFFECEEFC),
-      "borderColor": Color(0XFF026AA2),
-      "iconColor": Color(0XFF026AA2)
+      "borderColor": Color(0XFF0175CD3),
+      "icon": "assets/icons/moped_green.png",
+      "iconColor": Color(0XFF0175CD3),
+      "scale" : 1
     },
     {
       "text": "At Drop Off",
-      "textColor": Color(0XFF026AA2),
+      "textColor": Color(0XFF3538CD),
       "containerColor": Color(0XFFE2E2F8),
-      "borderColor": Color(0XFF026AA2),
-      "iconColor": Color(0XFF026AA2)
+      "borderColor": Color(0XFF3538CD),
+      "icon": "assets/icons/gps.png",
+      "iconColor": Color(0XFF3538CD),
+      "scale" : 5
     },
     {
       "text": "Delivered",
       "textColor": Color(0XFF027A48),
       "containerColor": Color(0XFFECFDF3),
       "borderColor": Color(0XFF027A48),
-      "iconColor": Color(0XFF027A48)
+      "icon": "assets/icons/box_green.png",
+      "iconColor": Color(0XFF027A48),
+      "scale" : 3
     },
+    
   ];
   // final List<Color> containerColors = [
   //   Color(0xFFD9D9D9), // Default
@@ -138,38 +150,43 @@ class _OrderState extends State<OrderDetailsScreen> {
                         style: AppFonts.text16Barlow
                             .copyWith(fontWeight: FontWeight.w600)),
                   ),
-                  currentStep >= 1
+                   currentStep >= 1 
                       ? Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 5),
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: statuses[currentStep]["borderColor"],
+                                  color: statuses[currentStep - 1]["borderColor"],
                                   width: 1),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(7),
                               ),
-                              color: statuses[currentStep]["containerColor"]),
+                              color: statuses[currentStep - 1]["containerColor"]),
                           child: Row(
                             children: [
                               Image.asset(
-                                AppImages.moped,
-                                scale: 5,
-                                color: Colors.black,
+                                isConfirm ? "assets/icons/box.png" :
+                                statuses[currentStep - 1]["icon"],
+                                color: statuses[currentStep - 1]["iconColor"], 
+                                scale: statuses[currentStep - 1]["scale"],
                               ),
                               SizedBox(
                                 width: _getSize.width * 0.013,
                               ),
+                              
                               Text(
                                 textAlign: TextAlign.center,
-                                statuses[currentStep - 1]["text"],
+                                isConfirm ?
+                                statuses.last["text"] : statuses[currentStep -1]["text"],   
                                 style: AppFonts.text12Barlow.copyWith(
-                                    color: statuses[currentStep]["textColor"],
+                                    color: isConfirm ? statuses.last["textColor"] : statuses[currentStep - 1]["textColor"],
                                     fontWeight: FontWeight.w600),
                               ),
+
                             ],
                           ),
                         )
+                        
                       : SizedBox.shrink()
                 ],
               ),
@@ -412,7 +429,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(trackerTexts.length, (index) {
-                      bool isActive = currentStep > index;
+                      bool isActive = currentStep > index + 1;
                       return Row(
                         children: [
                           TrackerIcons(
@@ -474,22 +491,19 @@ class _OrderState extends State<OrderDetailsScreen> {
                     style: AppFonts.text14Barlow
                         .copyWith(color: Pallete.hintText)),
               ),
-              SizedBox(
-                height: _getSize.height * 0.18,
-              ),
+           
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (currentStep == 0) {
+                   if (currentStep < buttonTexts.length -1 ) {
                       showTracker = true; // Enable tracker visibility
-                    }
-                    if (currentStep < buttonTexts.length - 1) {
                       currentStep++;
                     }
 
                     // Check if it's the last step after updating currentStep
-                    if (currentStep == buttonTexts.length - 1) {
+                    else if(currentStep == buttonTexts.length - 1) {
                       // Show dialog
+                      print("current step before dialog: $currentStep");
                       showDialog(
                         context: context,
                         barrierDismissible:
@@ -577,8 +591,9 @@ class _OrderState extends State<OrderDetailsScreen> {
                                     text: "Confirm Code",
                                     onPressed: () {
                                       setState(() {
-                                        showEarnings = true;
+                                        isConfirm = true;
                                         showTracker = false;
+                                        currentStep++;
                                       });
                                       Navigator.pop(
                                           context); // Close the dialog
@@ -632,70 +647,74 @@ class _OrderState extends State<OrderDetailsScreen> {
                 },
                 child: Column(
                   children: [
-                    if (showEarnings)
-                      SizedBox(
-                        // width: _getSize.width * 0.78,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0XFFECFDF3),
-                              ),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    AppImages.wallet2,
-                                    scale: 1,
-                                    width: _getSize.width * 0.07,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'Earning',
-                                      style: AppFonts.text14Barlow.copyWith(
-                                        color: Color(0XFF027A48),
-                                        fontWeight: FontWeight.w600,
+                    if (isConfirm)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25.0),
+                        child: SizedBox(
+                          // width: _getSize.width * 0.78,
+                          child: Column(
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0XFFECFDF3),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      AppImages.wallet2,
+                                      scale: 1,
+                                      width: _getSize.width * 0.07,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        'Earning',
+                                        style: AppFonts.text14Barlow.copyWith(
+                                          color: Color(0XFF027A48),
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4.0),
-                                    child: Text(
-                                      '₦10,000,00',
-                                      style: AppFonts.text14Barlow.copyWith(
-                                        color: Color(0XFF027A48),
-                                        fontWeight: FontWeight.w600,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4.0),
+                                      child: Text(
+                                        '₦10,000,00',
+                                        style: AppFonts.text14Barlow.copyWith(
+                                          color: Color(0XFF027A48),
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    else
+                      )else
+                     SizedBox(
+                height: _getSize.height * 0.18,
+              ),
+              if(currentStep < buttonTexts.length)
                       Container(
                         width: _getSize.width,
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Colors.blue,
+                          color: Pallete.primaryColor,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               buttonTexts[currentStep],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
+                              style: AppFonts.text16Barlow.copyWith(fontWeight: FontWeight.w600, color: Pallete.whiteColor)
+                                  
                             ),
                             if (currentStep < buttonTexts.length - 1)
                               SizedBox(width: 10),

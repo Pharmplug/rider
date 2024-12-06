@@ -9,7 +9,7 @@ import 'package:pharmplug_rider/models/track_orders.dart';
 import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/views/order/oder_details/order_details.dart';
 
-class OrderTracker extends StatelessWidget {
+class OrderTracker extends StatefulWidget {
   final List<Tracker> trackers;
 
   // final bool isOnTransit;
@@ -33,6 +33,12 @@ class OrderTracker extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<OrderTracker> createState() => _OrderTrackerState();
+}
+
+class _OrderTrackerState extends State<OrderTracker> {
+bool _showButton = true;
+  @override
   Widget build(BuildContext context) {
     final _getSize = MediaQuery.of(context).size;
 
@@ -40,9 +46,11 @@ class OrderTracker extends StatelessWidget {
       child: SizedBox(
         height: _getSize.height * 1,
         child: ListView.builder(
-            itemCount: trackers.length,
+            itemCount: widget.trackers.length,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
+              final tracker = widget.trackers[index];
+
               return Padding(
                 padding: const EdgeInsets.only(top: 6.0),
                 child: SizedBox(
@@ -77,7 +85,7 @@ class OrderTracker extends StatelessWidget {
                                       width: _getSize.width * 0.02,
                                     ),
                                     Text(
-                                      trackers[index].name,
+                                      widget.trackers[index].name,
                                       style: AppFonts.text12Barlow
                                           .copyWith(fontWeight: FontWeight.w800),
                                     ),
@@ -95,7 +103,7 @@ class OrderTracker extends StatelessWidget {
                                       width: _getSize.width * 0.01,
                                     ),
                                     Text(
-                                      trackers[index].time,
+                                      tracker.time,
                                       style: AppFonts.text12Barlow,
                                     ),
                                   ],
@@ -135,7 +143,7 @@ class OrderTracker extends StatelessWidget {
                                       width: _getSize.width * 0.035,
                                     ),
                                     Text(
-                                      trackers[index].addressFrom,
+                                      tracker.addressFrom,
                                       style: AppFonts.text12Barlow,
                                     )
                                   ],
@@ -182,7 +190,7 @@ class OrderTracker extends StatelessWidget {
                                       width: _getSize.width * 0.035,
                                     ),
                                     Text(
-                                      trackers[index].addressTo,
+                                      tracker.addressTo,
                                       style: AppFonts.text12Barlow,
                                     )
                                   ],
@@ -194,7 +202,7 @@ class OrderTracker extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                if (index == 0) ...[
+                                if (index == 0 && _showButton) ...[
                                   // Show Accept and Reject buttons for the first tracker
                                   GestureDetector(
                                     onTap: () {
@@ -221,23 +229,35 @@ class OrderTracker extends StatelessWidget {
                                   SizedBox(
                                     width: _getSize.width * 0.020,
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 7,
-                                      horizontal: 24,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Pallete.textRed,
-                                        width: 1,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                           if (widget.trackers.isNotEmpty) {
+                                          debugPrint("Removing tracker: ${widget.trackers[0].name}");
+                                          widget.trackers.removeAt(index);
+                                          _showButton = false; // Remove the first tracker
+                                          debugPrint("Remaining trackers: ${widget.trackers.map((t) => t.name).toList()}");
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 7,
+                                        horizontal: 24,
                                       ),
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                    child: Text(
-                                      'Reject',
-                                      style: AppFonts.text12Barlow.copyWith(
-                                        color: Pallete.textRed,
-                                        fontWeight: FontWeight.w600,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Pallete.textRed,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      child: Text(
+                                        'Reject',
+                                        style: AppFonts.text12Barlow.copyWith(
+                                          color: Pallete.textRed,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -252,22 +272,22 @@ class OrderTracker extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(6),
                                       border: Border.all(
                                         color: _getStatusColor(
-                                            trackers[index].status),
+                                            widget.trackers[index].status),
                                       ),
                                       color: _getStatusBackgroundColor(
-                                          trackers[index].status),
+                                          widget.trackers[index].status),
                                     ),
                                     child: Row(
                                       children: [
-                                        _getStatusIcon(trackers[index]
+                                        _getStatusIcon(widget.trackers[index]
                                             .status), // Conditional Icon
                                         SizedBox(width: 8),
                                         Text(
-                                          trackers[index]
+                                          widget.trackers[index]
                                               .status, // Display the tracker status
                                           style: AppFonts.text12Barlow.copyWith(
                                             color: _getStatusTextColor(
-                                                trackers[index].status),
+                                                widget.trackers[index].status),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -289,7 +309,7 @@ class OrderTracker extends StatelessWidget {
                                         width: _getSize.width * 0.01,
                                       ),
                                       Text(
-                                        trackers[index].distance,
+                                        widget.trackers[index].distance,
                                         style: AppFonts.text12Barlow,
                                       ),
                                     ]),
@@ -309,7 +329,7 @@ class OrderTracker extends StatelessWidget {
                                         width: _getSize.width * 0.01,
                                       ),
                                       Text(
-                                        "${trackers[index].noOfItems} items",
+                                        "${widget.trackers[index].noOfItems} items",
                                         style: AppFonts.text12Barlow,
                                       ),
                                     ]),
