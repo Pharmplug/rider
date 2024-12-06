@@ -14,9 +14,9 @@ import '../../../constants/resources.dart';
 import 'package:dotted_line/dotted_line.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  final List<OrderItem> items;
+  // final List<OrderItem> items;
 
-  const OrderDetailsScreen({Key? key, required this.items})
+  const OrderDetailsScreen({Key? key,})
       : super(
           key: key,
         );
@@ -609,7 +609,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              OrderDetailsScreen(items: []),
+                                              OrderScreen(),
                                         ),
                                       );
                                     },

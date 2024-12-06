@@ -5,6 +5,7 @@ import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:pharmplug_rider/constants/app_routes.dart';
+import 'package:pharmplug_rider/constants/resources.dart';
 import 'package:pharmplug_rider/models/track_orders.dart';
 import 'package:pharmplug_rider/utils/local_storage.dart';
 import 'package:pharmplug_rider/views/order/oder_details/order_details.dart';
@@ -206,7 +207,7 @@ bool _showButton = true;
                                   // Show Accept and Reject buttons for the first tracker
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderDetailsScreen(items: [])));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderDetailsScreen()));
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
