@@ -22,18 +22,18 @@ class _DashboardState extends State<Dashboard> {
   bool amountVisible = false;
   var amount = "******";
    bool isSwitched=false;
-  var deliveries = "4";
+  var deliveries = "0";
   var orderId = "FI56H17";
   var addressFrom = "11, Mike Adenuga, Ikate, Lekki, Lagos.";
   var addressTo = "20, Ligali Ayorinde, Ikoyi, Lagos.";
   var balance = "";
-  var tine = "10:12AM";
+  var time = "10:12AM";
   String name = "";
 
   void toggleAmountVisibility() {
     setState(() {
       amountVisible = !amountVisible;
-      amount = amountVisible ? balance : "******";
+      amount = amountVisible ? (balance.isNotEmpty ? balance : "0.00") : "******";
     });
   }
 
@@ -53,10 +53,12 @@ class _DashboardState extends State<Dashboard> {
     name = await showName();
     balance = await showBalance();
     isSwitched = await showIsWorking();
+    deliveries = deliveries.isNotEmpty ? deliveries : "0";
     setState(() {
       name;
       balance;
       isSwitched;
+      deliveries;
     });
   }
 
@@ -158,7 +160,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               DashboardTracker(
-                  time: tine,
+                  time: time,
                   tracking: 0,
                   orderId: orderId,
                   isOnTransit: isSwitched,

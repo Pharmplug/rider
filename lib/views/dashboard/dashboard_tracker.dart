@@ -4,8 +4,10 @@ import 'package:pharmplug_rider/constants/app_colors.dart';
 import 'package:pharmplug_rider/constants/app_font.dart';
 import 'package:pharmplug_rider/constants/app_images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:pharmplug_rider/constants/resources.dart';
 
-class DashboardTracker extends StatelessWidget {
+
+class DashboardTracker extends StatefulWidget {
   final bool isOnTransit;
   final String orderId;
   final String addressFrom;
@@ -21,6 +23,13 @@ class DashboardTracker extends StatelessWidget {
       required this.addressTo,
       required this.time})
       : super(key: key);
+
+  @override
+  State<DashboardTracker> createState() => _DashboardTrackerState();
+}
+
+class _DashboardTrackerState extends State<DashboardTracker> {
+  final bool hasOrders = trackers.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +59,7 @@ class DashboardTracker extends StatelessWidget {
                                 .copyWith(color: Pallete.hintText),
                           ),
                           Text(
-                            orderId,
+                            widget.orderId,
                             style: AppFonts.text14Barlow,
                           ),
                         ],
@@ -62,7 +71,7 @@ class DashboardTracker extends StatelessWidget {
                       Container(
                         width: _getSize.width * 0.21,
                         decoration: BoxDecoration(
-                          color: isOnTransit
+                          color: widget.isOnTransit
                               ? Color(0xFF175CD3).withOpacity(0.1)
                               : Pallete.textRed.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10),
@@ -76,14 +85,14 @@ class DashboardTracker extends StatelessWidget {
                               Icon(
                                 Icons.circle_rounded,
                                 size: 12,
-                                color: isOnTransit
+                                color: widget.isOnTransit
                                     ? Color(0xFF175CD3)
                                     : Pallete.textRed,
                               ),
                               Text(
                                 "On Transit",
                                 style: AppFonts.text12Barlow.copyWith(
-                                  color: isOnTransit
+                                  color: widget.isOnTransit
                                       ? Color(0xFF175CD3)
                                       : Pallete.textRed,
                                   fontWeight: FontWeight.bold,
@@ -109,6 +118,7 @@ class DashboardTracker extends StatelessWidget {
               SizedBox(
                 height: _getSize.height * 0.025,
               ),
+              hasOrders ?
               Container(
                 height: _getSize.height * 0.27,
                 decoration: BoxDecoration(
@@ -150,7 +160,7 @@ class DashboardTracker extends StatelessWidget {
                                 size: 16,
                               ),
                               Text(
-                                time,
+                                widget.time,
                                 style: AppFonts.text14Barlow,
                               ),
                             ],
@@ -189,7 +199,7 @@ class DashboardTracker extends StatelessWidget {
                                 width: _getSize.width * 0.035,
                               ),
                               Text(
-                                addressFrom,
+                                widget.addressFrom,
                                 style: AppFonts.text14Barlow,
                               )
                             ],
@@ -235,7 +245,7 @@ class DashboardTracker extends StatelessWidget {
                                 width: _getSize.width * 0.035,
                               ),
                               Text(
-                                addressTo,
+                                widget.addressTo,
                                 style: AppFonts.text14Barlow,
                               )
                             ],
@@ -262,7 +272,7 @@ class DashboardTracker extends StatelessWidget {
                             lineLength: _getSize.height * 0.04,
                             lineThickness: 1.0,
                             dashLength: 4.0,
-                            dashColor: tracking >= 0
+                            dashColor: widget.tracking >= 0
                                 ? Pallete.primaryColor
                                 : Pallete.disabledColor,
                             dashRadius: 0.0,
@@ -278,11 +288,11 @@ class DashboardTracker extends StatelessWidget {
                             getSize: _getSize,
                             icon: Image.asset(
                               AppImages.store,
-                              color: tracking >= 1
+                              color: widget.tracking >= 1
                                   ? Pallete.whiteColor
                                   : Pallete.disabledColor,
                             ),
-                            containerColor: tracking >= 1
+                            containerColor: widget.tracking >= 1
                                 ? Pallete.primaryColor
                                 : Color(0xFFD9D9D9),
                           ),
@@ -292,7 +302,7 @@ class DashboardTracker extends StatelessWidget {
                             lineLength: _getSize.height * 0.04,
                             lineThickness: 1.0,
                             dashLength: 4.0,
-                            dashColor: tracking >= 1
+                            dashColor: widget.tracking >= 1
                                 ? Pallete.primaryColor
                                 : Pallete.disabledColor,
                             dashRadius: 0.0,
@@ -308,11 +318,11 @@ class DashboardTracker extends StatelessWidget {
                             getSize: _getSize,
                             icon: Image.asset(
                               AppImages.moped,
-                              color: tracking >= 2
+                              color: widget.tracking >= 2
                                   ? Pallete.whiteColor
                                   : Pallete.disabledColor,
                             ),
-                            containerColor: tracking >= 2
+                            containerColor: widget.tracking >= 2
                                 ? Pallete.primaryColor
                                 : Color(0xFFD9D9D9),
                           ),
@@ -322,7 +332,7 @@ class DashboardTracker extends StatelessWidget {
                             lineLength: _getSize.height * 0.04,
                             lineThickness: 1.0,
                             dashLength: 4.0,
-                            dashColor: tracking >= 2
+                            dashColor: widget.tracking >= 2
                                 ? Pallete.primaryColor
                                 : Pallete.disabledColor,
                             dashRadius: 0.0,
@@ -338,11 +348,11 @@ class DashboardTracker extends StatelessWidget {
                             getSize: _getSize,
                             icon: Icon(
                               Icons.location_on_outlined,
-                              color: tracking >= 3
+                              color: widget.tracking >= 3
                                   ? Pallete.whiteColor
                                   : Pallete.hintText,
                             ),
-                            containerColor: tracking >= 3
+                            containerColor: widget.tracking >= 3
                                 ? Pallete.primaryColor
                                 : Color(0xFFD9D9D9),
                           ),
@@ -354,7 +364,20 @@ class DashboardTracker extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ) : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                        AppImages.imageBox,
+                        scale: 1,
+                      ),
+                      SizedBox(height: _getSize.height * 0.02),
+                    Text("No Current Order", style: AppFonts.text16Barlow. copyWith(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              )
            ],
           )),
     );

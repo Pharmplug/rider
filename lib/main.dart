@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: AppRoutes.routes(),
-            home:OrderScreen()
+            home:Dashboard()
             // home: FutureBuilder(
             //   builder: (ctx, snapshot) {
             //     // Checking if future is resolved or not

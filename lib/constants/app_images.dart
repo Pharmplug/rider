@@ -37,5 +37,6 @@ class AppImages {
   static const onboadingSequence2 = 'assets/images/sequence2.png';
   static const completeSequence = 'assets/images/complete_sequence.png';
   static const requestedAccess= 'assets/images/request_access.png';
+  static const imageBox = 'assets/images/box.png';
 
 }
