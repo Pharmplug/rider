@@ -59,7 +59,7 @@ bool _showButton = true;
                     child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8.0),
                       // height: _getSize.height * 0.27,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 241, 241, 241),
@@ -151,7 +151,7 @@ bool _showButton = true;
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 14.0, vertical: 8),
+                                      horizontal: 14.0, vertical: 8.0),
                                   child: DottedLine(
                                     direction: Axis.vertical,
                                     alignment: WrapAlignment.center,
@@ -211,8 +211,8 @@ bool _showButton = true;
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                        vertical: 7,
-                                        horizontal: 20,
+                                        vertical: 7.0,
+                                        horizontal: 20.0,
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(6),
@@ -243,8 +243,8 @@ bool _showButton = true;
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                        vertical: 7,
-                                        horizontal: 24,
+                                        vertical: 7.0,
+                                        horizontal: 24.0,
                                       ),
                                       decoration: BoxDecoration(
                                         border: Border.all(
@@ -266,11 +266,11 @@ bool _showButton = true;
                                   // Show a single button for other trackers
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 5,
-                                      horizontal: 10,
+                                      vertical: 5.0,
+                                      horizontal: 10.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
+                                      borderRadius: BorderRadius.circular(6.0),
                                       border: Border.all(
                                         color: _getStatusColor(
                                             widget.trackers[index].status),
@@ -282,7 +282,7 @@ bool _showButton = true;
                                       children: [
                                         _getStatusIcon(widget.trackers[index]
                                             .status), // Conditional Icon
-                                        SizedBox(width: 8),
+                                        SizedBox(width: 8.0),
                                         Text(
                                           widget.trackers[index]
                                               .status, // Display the tracker status
@@ -324,7 +324,7 @@ bool _showButton = true;
                                     Row(children: [
                                       Image.asset(
                                         AppImages.boxSecondary,
-                                        scale: 2,
+                                        scale: 2.0,
                                       ),
                                       SizedBox(
                                         width: _getSize.width * 0.01,
@@ -437,17 +437,17 @@ Widget _getStatusIcon(String status) {
   switch (status.toLowerCase()) {
     case 'delivered':
       return Image.asset(AppImages.boxSecondary,
-          scale: 2, color: Color(0XFF027A48));
+          scale: 2.0, color: Color(0XFF027A48));
     case 'on transit':
-      return Image.asset(AppImages.moped, scale: 5, color: Color(0XFF175CD3));
+      return Image.asset(AppImages.moped, scale: 5.0, color: Color(0XFF175CD3));
     case 'at the store':
       return Image.asset(AppImages.storefront,
-          scale: 5, color: Color(0XFF6941C6)); 
+          scale: 5.0, color: Color(0XFF6941C6)); 
     case 'to pickup':
-      return Image.asset(AppImages.moped, scale: 5, color: Color(0XFFFF69B4));
+      return Image.asset(AppImages.moped, scale: 5.0, color: Color(0XFFFF69B4));
     case 'accepted':
       return Image.asset(AppImages.moped,
-          scale: 5, color: Color(0XFF344054)); 
+          scale: 5.0, color: Color(0XFF344054)); 
     default:
       return Icon(Icons.help_outline,
           color: Color(0XFF027A48)); 

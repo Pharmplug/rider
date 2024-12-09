@@ -16,7 +16,7 @@ import 'package:dotted_line/dotted_line.dart';
 class OrderDetailsScreen extends StatefulWidget {
   // final List<OrderItem> items;
 
-  const OrderDetailsScreen({Key? key,})
+  const OrderDetailsScreen({Key? key})
       : super(
           key: key,
         );
@@ -63,7 +63,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Pallete.hintText,
       "icon": "assets/icons/moped_green.png",
       "iconColor": Pallete.hintText,
-      "scale" : 1
+      "scale" : 1.0
     },
     {
       "text": "To Pickup",
@@ -72,7 +72,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Color(0XFFC4320A),
       "icon": "assets/icons/moped_green.png",
       "iconColor": Color(0XFFC4320A),
-      "scale" : 1
+      "scale" : 1.0
     },
     {
      "text": "At the Store",
@@ -81,7 +81,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Color(0XFF026AA2),
       "icon": "assets/icons/storefront.png",
       "iconColor": Color(0XFF026AA2),
-      "scale" : 5
+      "scale" : 5.0
     },
     {
       "text": "On Transit",
@@ -90,7 +90,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Color(0XFF0175CD3),
       "icon": "assets/icons/moped_green.png",
       "iconColor": Color(0XFF0175CD3),
-      "scale" : 1
+      "scale" : 1.0
     },
     {
       "text": "At Drop Off",
@@ -99,7 +99,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Color(0XFF3538CD),
       "icon": "assets/icons/gps.png",
       "iconColor": Color(0XFF3538CD),
-      "scale" : 5
+      "scale" : 5.0
     },
     {
       "text": "Delivered",
@@ -108,7 +108,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       "borderColor": Color(0XFF027A48),
       "icon": "assets/icons/box_green.png",
       "iconColor": Color(0XFF027A48),
-      "scale" : 3
+      "scale" : 3.0
     },
     
   ];
@@ -124,7 +124,7 @@ class _OrderState extends State<OrderDetailsScreen> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -139,11 +139,11 @@ class _OrderState extends State<OrderDetailsScreen> {
                     },
                     child: Image.asset(
                       AppImages.back,
-                      scale: 2,
+                      scale: 2.0,
                     ),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 30.0,
                   ),
                   Expanded(
                     child: Text('Order Details',
@@ -153,11 +153,11 @@ class _OrderState extends State<OrderDetailsScreen> {
                    currentStep >= 1 
                       ? Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 5),
+                              vertical: 5.0, horizontal: 5.0),
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: statuses[currentStep - 1]["borderColor"],
-                                  width: 1),
+                                  width: 1.0),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(7),
                               ),
@@ -191,14 +191,14 @@ class _OrderState extends State<OrderDetailsScreen> {
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 30.0,
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(8.0),
                 // height: _getSize.height * 0.19,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 241, 241, 241),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
@@ -285,7 +285,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 14.0, vertical: 8),
+                                horizontal: 14.0, vertical: 8.0),
                             child: DottedLine(
                               direction: Axis.vertical,
                               alignment: WrapAlignment.center,
@@ -342,7 +342,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                 children: [
                   Image.asset(
                     AppImages.box,
-                    scale: 2,
+                    scale: 2.0,
                   ),
                   SizedBox(
                     width: _getSize.width * 0.03,
@@ -397,7 +397,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                 children: [
                   Image.asset(
                     AppImages.moped,
-                    scale: 3,
+                    scale: 3.0,
                     color: Colors.black,
                   ),
                   SizedBox(
@@ -441,13 +441,13 @@ class _OrderState extends State<OrderDetailsScreen> {
                                     ? Image.asset(
                                         // "At the Store" image
                                         AppImages.store,
-                                        scale: 3,
+                                        scale: 3.0,
                                         color: Colors.white,
                                       )
                                     : Image.asset(
                                         // Default "Moped" image
                                         AppImages.moped,
-                                        scale: 3,
+                                        scale: 3.0,
                                         color: Colors.white,
                                       ),
                             containerColor: currentStep > index + 1
@@ -535,7 +535,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                                   ),
                                   Image.asset(
                                     AppImages.requestedAccess,
-                                    scale: 1,
+                                    scale: 1.0,
                                   ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
@@ -549,8 +549,8 @@ class _OrderState extends State<OrderDetailsScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0),
                                         child: Container(
-                                          width: 44,
-                                          height: 44,
+                                          width: 44.0,
+                                          height: 44.0,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -609,7 +609,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              OrderScreen(),
+                                              OrderDetailsScreen(),
                                         ),
                                       );
                                     },
@@ -619,7 +619,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                                       children: [
                                         Image.asset(
                                           AppImages.iconBack,
-                                          scale: 2,
+                                          scale: 2.0,
                                           color: Pallete.secondaryColor,
                                         ),
                                         Padding(
@@ -657,16 +657,16 @@ class _OrderState extends State<OrderDetailsScreen> {
                             children: [
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 10),
+                                    vertical: 4.0, horizontal: 10.0),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.0),
                                   color: Color(0XFFECFDF3),
                                 ),
                                 child: Row(
                                   children: [
                                     Image.asset(
                                       AppImages.wallet2,
-                                      scale: 1,
+                                      scale: 1.0,
                                       width: _getSize.width * 0.07,
                                     ),
                                     Expanded(
@@ -703,7 +703,7 @@ class _OrderState extends State<OrderDetailsScreen> {
                       Container(
                         width: _getSize.width,
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 16),
+                            vertical: 16.0, horizontal: 16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           color: Pallete.primaryColor,
@@ -717,12 +717,12 @@ class _OrderState extends State<OrderDetailsScreen> {
                                   
                             ),
                             if (currentStep < buttonTexts.length - 1)
-                              SizedBox(width: 10),
+                              SizedBox(width: 10.0),
                             if (currentStep > 0 &&
                                 currentStep < buttonTexts.length - 1)
                               Image.asset(
                                 AppImages.caretDoubleRight,
-                                scale: 1,
+                                scale: 1.0,
                               )
                           ],
                         ),
@@ -748,10 +748,10 @@ class _OrderState extends State<OrderDetailsScreen> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 16),
+                            vertical: 16.0, horizontal: 16.0),
                         decoration: BoxDecoration(
                             border:
-                                Border.all(color: Pallete.textRed, width: 1),
+                                Border.all(color: Pallete.textRed, width: 1.0),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         child: Text(
