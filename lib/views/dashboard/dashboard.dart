@@ -22,6 +22,7 @@ class _DashboardState extends State<Dashboard> {
   bool amountVisible = false;
   var amount = "******";
    bool isSwitched=false;
+   bool hasNotifications = true;
   var deliveries = "0";
   var orderId = "FI56H17";
   var addressFrom = "11, Mike Adenuga, Ikate, Lekki, Lagos.";
@@ -85,6 +86,7 @@ class _DashboardState extends State<Dashboard> {
                 isSwitched: isSwitched,
                 toggleAmountVisibility: toggleAmountVisibility,
                 toggleSwitch: toggleSwitch,
+                hasNotifications: hasNotifications,
               ),
               Padding(
                 padding:

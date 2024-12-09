@@ -38,5 +38,6 @@ class AppImages {
   static const completeSequence = 'assets/images/complete_sequence.png';
   static const requestedAccess= 'assets/images/request_access.png';
   static const imageBox = 'assets/images/box.png';
+  static const notepad = 'assets/images/notepad.png';
 
 }

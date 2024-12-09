@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:pharmplug_rider/constants/app_images.dart';
+import 'package:pharmplug_rider/constants/resources.dart';
 import 'package:pharmplug_rider/models/recent_deliveries.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_font.dart';
 
-class DashboardDeliveries extends StatelessWidget {
+class DashboardDeliveries extends StatefulWidget {
   final List<Order> orders;
 
   const DashboardDeliveries({
     Key? key,
     required this.orders,
   }) : super(key: key);
+
+  @override
+  State<DashboardDeliveries> createState() => _DashboardDeliveriesState();
+}
+
+class _DashboardDeliveriesState extends State<DashboardDeliveries> {
+bool hasDeliveries = orders.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +60,11 @@ class DashboardDeliveries extends StatelessWidget {
               SizedBox(
                 height: getSize.height * 0.025,
               ),
+              hasDeliveries ?
               SizedBox(
                 height: getSize.height * 0.28,
                 child: ListView.builder(
-                    itemCount: orders.length,
+                    itemCount: widget.orders.length,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
@@ -70,7 +79,7 @@ class DashboardDeliveries extends StatelessWidget {
                                   width: getSize.width * 0.1,
                                   child: Image.asset(
                                     scale: 0.5,
-                                    orders[index].img,
+                                    widget.orders[index].img,
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -78,7 +87,7 @@ class DashboardDeliveries extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      orders[index].name,
+                                      widget.orders[index].name,
                                       style: AppFonts.text12Barlow.copyWith(
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -91,7 +100,7 @@ class DashboardDeliveries extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          orders[index].id,
+                                          widget.orders[index].id,
                                           style: AppFonts.text14Barlow.copyWith(
                                             color: Pallete.text,
                                           ),
@@ -106,7 +115,7 @@ class DashboardDeliveries extends StatelessWidget {
                                     Container(
                                       width: getSize.width * 0.21,
                                       decoration: BoxDecoration(
-                                        color: orders[index].completed
+                                        color: widget.orders[index].completed
                                             ? const Color(0xFF175CD3).withOpacity(0.1)
                                             : Pallete.secondaryColor
                                                 .withOpacity(0.1),
@@ -122,17 +131,17 @@ class DashboardDeliveries extends StatelessWidget {
                                             Icon(
                                               Icons.circle_rounded,
                                               size: 12,
-                                              color: orders[index].completed
+                                              color: widget.orders[index].completed
                                                   ? const Color(0xFF175CD3)
                                                   : const Color(0xFF027A48),
                                             ),
                                             Text(
-                                              orders[index].completed
+                                              widget.orders[index].completed
                                                   ? "On Transit"
                                                   : "Delivered",
                                               style: AppFonts.text12Barlow
                                                   .copyWith(
-                                                color: orders[index].completed
+                                                color: widget.orders[index].completed
                                                     ? const Color(0xFF175CD3)
                                                     : const Color(0xFF027A48),
                                                 fontWeight: FontWeight.w300,
@@ -144,7 +153,7 @@ class DashboardDeliveries extends StatelessWidget {
                                     ),
                                     SizedBox(height: getSize.height * 0.005),
                                     Text(
-                                      "#${orders[index].amount}",
+                                      "#${widget.orders[index].amount}",
                                       style: AppFonts.text14Barlow.copyWith(
                                           color: Pallete.secondaryColor,
                                           fontWeight: FontWeight.w300,
@@ -168,7 +177,20 @@ class DashboardDeliveries extends StatelessWidget {
                         ),
                       );
                     }),
-              ),
+              ):  Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                        AppImages.notepad,
+                        scale: 2,
+                      ),
+                      SizedBox(height: getSize.height * 0.02),
+                    Text("No Delivery Yet", style: AppFonts.text16Barlow. copyWith(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              )
             ],
           ),
         ),

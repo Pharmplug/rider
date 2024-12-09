@@ -29,7 +29,7 @@ class DashboardTracker extends StatefulWidget {
 }
 
 class _DashboardTrackerState extends State<DashboardTracker> {
-  final bool hasOrders = trackers.isNotEmpty;
+  bool hasOrders = orders.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {

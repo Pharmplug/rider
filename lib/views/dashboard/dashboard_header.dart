@@ -12,6 +12,7 @@ class DashboardHeader extends StatelessWidget {
   final VoidCallback toggleAmountVisibility;
   final ValueChanged<bool> toggleSwitch;
   final String name;
+  final bool hasNotifications;
 
   const DashboardHeader({
     Key? key,
@@ -21,6 +22,7 @@ class DashboardHeader extends StatelessWidget {
     required this.toggleAmountVisibility,
     required this.toggleSwitch,
     required this.name,
+    required this.hasNotifications,
   }) : super(key: key);
 
   @override
@@ -51,16 +53,36 @@ class DashboardHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Hello $name,", style: AppFonts.text18Inter),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Pallete.primaryColor,
-                    shape: BoxShape.circle,
+               Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Pallete.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.notifications_on_outlined,
+                        color: Pallete.whiteColor,
+                      ),
+                    ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.notifications_on_outlined,color: Pallete.whiteColor,),
-                  ),
-                ),
+                  if (hasNotifications) 
+                    Positioned(
+                      right: 0, 
+                      child: Container(
+                        width: 7, 
+                        height: 7, 
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+
               ],
             ),
             Row(
@@ -87,7 +109,7 @@ class DashboardHeader extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                              '₦$amount',
+                              '₦ $amount',
                             overflow: TextOverflow.ellipsis,
                             style: AppFonts.text16Inter.copyWith(
                               fontWeight: FontWeight.w600,
