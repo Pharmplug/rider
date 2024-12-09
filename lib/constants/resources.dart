@@ -62,7 +62,7 @@ img: AppImages.box,
 
 final List<Tracker> trackers = [
   Tracker(
-    name: "Julie Harrisson Pharmacy Store",
+    name: "John Harrisson Pharmacy Store",
     addressFrom: "20, Ligali Ayorinde, Ikoyi, Lagos.",
     addressTo: "11, Mike Adenuga, Ikate, Lekki, Lagos.",
     time: "10:20AM",
@@ -82,7 +82,7 @@ final List<Tracker> trackers = [
     status: 'Delivered'
   ),
  Tracker(
-    name: "Julie Harrisson Pharmacy Store",
+    name: "Thomas Harrisson Pharmacy Store",
     addressFrom: "20, Ligali Ayorinde, Ikoyi, Lagos.",
     addressTo: "11, Mike Adenuga, Ikate, Lekki, Lagos.",
     time: "10:12AM",
@@ -92,7 +92,7 @@ final List<Tracker> trackers = [
     status: 'On Transit'
   ),
   Tracker(
-    name: "Julie Harrisson Pharmacy Store",
+    name: "David Harrisson Pharmacy Store",
     addressFrom: "20, Ligali Ayorinde, Ikoyi, Lagos.",
     addressTo: "11, Mike Adenuga, Ikate, Lekki, Lagos.",
     time: "10:12AM",
@@ -102,7 +102,7 @@ final List<Tracker> trackers = [
     status: 'At The Store'
   ),
   Tracker(
-    name: "Julie Harrisson Pharmacy Store",
+    name: "Daniel Harrisson Pharmacy Store",
     addressFrom: "20, Ligali Ayorinde, Ikoyi, Lagos.",
     addressTo: "11, Mike Adenuga, Ikate, Lekki, Lagos.",
     time: "10:12AM",
@@ -112,7 +112,7 @@ final List<Tracker> trackers = [
     status: 'To Pickup'
   ),
    Tracker(
-    name: "Julie Harrisson Pharmacy Store",
+    name: "Joy Harrisson Pharmacy Store",
     addressFrom: "20, Ligali Ayorinde, Ikoyi, Lagos.",
     addressTo: "11, Mike Adenuga, Ikate, Lekki, Lagos.",
     time: "10:12AM",
