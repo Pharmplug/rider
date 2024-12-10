@@ -1,3 +1,5 @@
+import 'package:pharmplug_rider/views/onboarding/onboading.dart';
+
 class AppImages {
   //ICONS
   static const gps = 'assets/icons/gps.png';
@@ -39,5 +41,8 @@ class AppImages {
   static const requestedAccess= 'assets/images/request_access.png';
   static const imageBox = 'assets/images/box.png';
   static const notepad = 'assets/images/notepad.png';
+  static const onboarding1 = 'assets/images/onboarding1.png';
+  static const onboarding2 = 'assets/images/onboarding2.png';
+  static const onboarding3 = 'assets/images/onboarding3.png';
 
 }
